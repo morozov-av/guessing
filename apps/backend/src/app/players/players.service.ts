@@ -23,6 +23,10 @@ export class PlayersService {
     return toPlayerDto(player);
   }
 
+  async updateAmount(filter: { id: string }, diff: number): Promise<void> {
+    await this.playerModel.findOneAndUpdate(filter, { $inc : { diff } }).exec();
+  }
+
   async getTop50(): Promise<PlayerDto[]> {
     const players = await this.playerModel
       .find()

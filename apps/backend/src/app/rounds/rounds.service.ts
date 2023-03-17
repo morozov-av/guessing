@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { BidModel } from '../bids/models/bid.model';
+import { BidsService } from '../bids/bids.service';
+import { BidDto } from '../bids/dto/bid.dto';
 import { getMultiplier } from '../helpers/multiplier';
-import { PlayerModel } from '../players/models/player.model';
-import { toFinishedRoundDto, toRoundDto } from '../shared/mapper';
+import { PlayersService } from '../players/players.service';
+import { toFinishedRoundDto, toPlayerDto, toRoundDto } from '../shared/mapper';
 import { FinishedRoundDto } from './dto/round.finished.dto';
 import { RoundDto } from './dto/round.dto';
 import { RoundModel } from './models/round.model';
@@ -14,10 +15,8 @@ export class RoundsService {
   constructor(
     @InjectModel(RoundModel.name)
     private readonly roundModel: Model<RoundModel>,
-    @InjectModel(PlayerModel.name)
-    private readonly playerModel: Model<PlayerModel>,
-    @InjectModel(BidModel.name)
-    private readonly bidModel: Model<BidModel>
+    private readonly playersService: PlayersService,
+    private readonly bidsService: BidsService
   ) {}
 
   async create(): Promise<RoundDto> {
@@ -28,19 +27,18 @@ export class RoundsService {
     return toRoundDto(round);
   }
 
-  private async updatePlayerAmount(bid: BidModel, multiplier: number): Promise<void> {
+  private async updatePlayerAmount(bid: BidDto, multiplier: number): Promise<void> {
     const { playerId, amount, multiplier: playerMultiplier } = bid;
 
     const diff = playerMultiplier <= multiplier ? amount * multiplier : -amount;
     const filter = { id: playerId };
-    await this.playerModel.findOneAndUpdate(filter, { $inc : { amount : diff } }).exec();
+    await this.playersService.updateAmount(filter, diff);
   }
 
   private async updatePlayersAmount(round: RoundModel): Promise<void> {
     const { id, multiplier } = round;
-    const filter = { roundId: id };
 
-    const bids: BidModel[] = await this.bidModel.find(filter).exec()
+    const bids: BidDto[] = await this.bidsService.findById(id);
 
     for (const bid of bids) {
       await this.updatePlayerAmount(bid, multiplier)
@@ -61,5 +59,15 @@ export class RoundsService {
     await this.updatePlayersAmount(round);
 
     return toFinishedRoundDto(round);
+  }
+
+  async findOne(id: string): Promise<RoundModel | never> {
+    const round = await this.roundModel.findOne({ id }).exec();
+
+    if (!round) {
+      throw new HttpException('Round does not exist', HttpStatus.NOT_FOUND);
+    }
+
+    return round;
   }
 }

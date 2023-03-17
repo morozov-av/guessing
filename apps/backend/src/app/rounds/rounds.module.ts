@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { BidsModule } from '../bids/bids.module';
+import { PlayersModule } from '../players/players.module';
 import { RoundModel, RoundSchema } from './models/round.model';
 import { RoundsService } from './rounds.service';
 import { RoundsGateway } from './rounds.gateway';
@@ -12,7 +14,10 @@ import { RoundsGateway } from './rounds.gateway';
         schema: RoundSchema,
       },
     ]),
+    PlayersModule,
+    BidsModule
   ],
   providers: [RoundsService, RoundsGateway],
+  exports: [RoundsService]
 })
 export class RoundsModule {}

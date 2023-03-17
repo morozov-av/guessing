@@ -1,7 +1,6 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { RoundModel } from '../rounds/models/round.model';
 import { toBidDto } from '../shared/mapper';
 import { CreateBidDto } from './dto/bid.create.dto';
 import { BidDto } from './dto/bid.dto';
@@ -11,9 +10,7 @@ import { BidModel } from './models/bid.model';
 export class BidsService {
   constructor(
     @InjectModel(BidModel.name)
-    private readonly bidModel: Model<BidModel>,
-    @InjectModel(RoundModel.name)
-    private readonly roundModel: Model<RoundModel>
+    private readonly bidModel: Model<BidModel>
   ) {}
 
   async create(bidDto: CreateBidDto): Promise<BidDto> {
@@ -26,14 +23,17 @@ export class BidsService {
       multiplier
     });
 
-    const filter = { id: roundId }
-    const round: RoundModel = await this.roundModel.findOne(filter).exec();
-    if (!round) {
-      throw new HttpException('Round does not exist', HttpStatus.BAD_REQUEST);
-    }
-
     await bid.save();
 
     return toBidDto(bid);
+  }
+
+  async findById(id: string): Promise<BidDto[]> {
+
+    const filter = { roundId: id };
+
+    const bids: BidModel[] = await this.bidModel.find(filter).exec()
+
+    return bids.map(toBidDto);
   }
 }
