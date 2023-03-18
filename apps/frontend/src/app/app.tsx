@@ -1,16 +1,8 @@
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import styles from './app.module.scss';
+import { FC } from 'react';
+import Ranking from './components/Ranking/Ranking';
 
-import NxWelcome from './nx-welcome';
-
-export function App() {
-  return (
-    <>
-      <NxWelcome title="frontend" />
-
-      <div />
-    </>
-  );
-}
+const App: FC = () => {
+  return <Ranking />
+};
 
 export default App;
