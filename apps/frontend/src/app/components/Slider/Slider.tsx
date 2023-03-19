@@ -34,6 +34,5 @@ export const SpeedSlider: FC = () => {
         <SliderThumb boxSize={4} />
       </Slider>
     </Flex>
-
   );
 };

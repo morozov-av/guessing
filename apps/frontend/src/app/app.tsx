@@ -3,6 +3,7 @@ import { Dict } from '@chakra-ui/utils';
 import { FC } from 'react';
 import { Chart } from './components/Chart/Chart';
 import { Chat } from './components/Chat/Chat';
+import { CurrentRound } from './components/CurrentRound/CurrentRound';
 import { GridItem } from './components/GridItem';
 import { LoginButton } from './components/Login/Login';
 import { NumericInput } from './components/NumericInputForm/NumericInput';
@@ -54,8 +55,12 @@ const App: FC = () => (
       <GridItem rowSpan={7} colSpan={4} bg='wheat'>
         <Chat />
       </GridItem>
-      <GridItem rowSpan={4} colSpan={4} bg='tomato' />
-      <GridItem rowSpan={4} colSpan={4} bg='tomato' />
+      <GridItem overflow='scroll' rowSpan={4} colSpan={4}>
+        <CurrentRound />
+      </GridItem>
+      <GridItem overflow='scroll' rowSpan={4} colSpan={4}>
+        <CurrentRound />
+      </GridItem>
     </Grid>
   </ChakraProvider>
 );
