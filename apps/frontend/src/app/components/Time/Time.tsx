@@ -1,7 +1,7 @@
-import { Typography } from '@mui/material';
+import { TimeIcon } from '@chakra-ui/icons';
+import { Flex, Text } from '@chakra-ui/react';
 import  React, { useState , useEffect } from 'react';
-import { InfoLabel } from '../InfoLabel';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { white } from '../../constants';
 
 export const Time = () => {
   const [ date,setDate ] = useState(new Date());
@@ -12,9 +12,9 @@ export const Time = () => {
   });
 
   return(
-    <InfoLabel>
-      <AccessTimeIcon />
-      <Typography>{date.toLocaleTimeString()}</Typography>
-    </InfoLabel>
+    <Flex h='100%' alignItems='center' justifyItems='center' color={white} padding={1}>
+      <TimeIcon paddingRight={1} boxSize={5} />
+      <Text>{date.toLocaleTimeString()}</Text>
+    </Flex>
   );
 };

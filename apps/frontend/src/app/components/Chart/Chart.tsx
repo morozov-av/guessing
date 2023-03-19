@@ -5,7 +5,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: 'easeInOut' };
 
 export const Chart: FC = () => {
   return (
-    <div className='container'>
+    <div style={{ width: '600px', height: '400px', overflow: 'hidden' }} className='container'>
       <svg xmlns="http://www.w3.org/2000/svg" width={'600px'} height={'400px'}>
         <motion.path
           d="M30,370 C 400,370 500,319 570,30"

@@ -1,14 +1,8 @@
-import { Button, InputLabel } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import NumInput, { HTMLNumericElement } from 'material-ui-numeric-input';
-import { ChangeEvent, FC, useState } from 'react';
-import { FlexContainer, ItemWrapper } from '../Sider/Styled';
+import { Button, Flex, HStack, Input, Text, useNumberInput } from '@chakra-ui/react';
+import React, { FC } from 'react';
+import { paper, tomato, white } from '../../constants';
 
-const InputButton = styled(Button)(() => ({
-  minWidth: '40px',
-  height: '40px',
-  margin: '0 .5rem'
-}));
+Input.defaultProps = { ...Input.defaultProps, focusBorderColor: tomato };
 
 type NumericInputProps = {
   initialValue: number,
@@ -20,56 +14,34 @@ type NumericInputProps = {
 }
 
 export const NumericInput: FC<NumericInputProps> = ({
-  initialValue,
-  step,
-  precision,
-  max,
-  min,
-  label
-}) => {
-  const [ value, setValue ] = useState<number>(initialValue);
+    initialValue,
+    step,
+    precision,
+    max,
+    min,
+    label
+  }) => {
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+    useNumberInput({
+      step,
+      defaultValue: initialValue,
+      min: min,
+      max: max,
+      precision: precision
+    });
 
-  const increment = () => {
-    setValue((prev) => prev + step);
-  };
+  const inc = getIncrementButtonProps();
+  const dec = getDecrementButtonProps();
+  const input = getInputProps();
 
-  const decrement = () => {
-    setValue((prev) => prev - step);
-  };
-
-  const handleChange = (e: ChangeEvent<HTMLNumericElement>) => {
-    const { value } = e.target;
-
-    if (!value) {
-      setValue(0);
-    }
-
-    if (typeof value === 'number') {
-      setValue(value);
-    }
-  };
-
-  return(
-    <ItemWrapper>
-      <FlexContainer>
-        <InputLabel htmlFor="my-input">{label}</InputLabel>
-      </FlexContainer>
-      <FlexContainer>
-        <InputButton variant="outlined" disabled={value <= min} onClick={decrement}>-</InputButton>
-        <NumInput
-          value={value}
-          aria-describedby="my-helper-text"
-          id="my-input"
-          name='example'
-          precision={precision}
-          decimalChar='.'
-          thousandChar=','
-          onChange={handleChange}
-          variant='outlined'
-          size="small"
-        />
-        <InputButton variant="outlined" disabled={value >= max} onClick={increment}>+</InputButton>
-      </FlexContainer>
-    </ItemWrapper>
+  return (
+    <Flex color={white} w='90%' alignItems='center' justifyItems='center' direction='column'>
+      <Text>{label}</Text>
+      <HStack>
+        <Button {...dec} bgColor={paper} color={tomato}>-</Button>
+        <Input color={tomato} bgColor={paper} {...input} />
+        <Button color={tomato} {...inc}>+</Button>
+      </HStack>
+    </Flex>
   );
 };
