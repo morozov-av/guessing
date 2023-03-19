@@ -4,7 +4,7 @@ import { ChartWrapper } from './Styled';
 
 export const Game = () => {
   return (
-    <Grid xs={8}>
+    <Grid xs={7}>
       <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 1, md: 2 }}>
         <Grid xs={12}>
           <ChartWrapper>

@@ -27,6 +27,7 @@
     "framer-motion": "5.1.0-rc.1",
     "js-easing-functions": "^1.0.3",
     "lodash": "^4.17.21",
+    "material-ui-numeric-input": "^3.2.0",
     "mongoose": "^7.0.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
