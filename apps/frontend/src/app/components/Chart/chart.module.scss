@@ -1,0 +1,17 @@
+.container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.box {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  position: absolute;
+  background: white;
+  top: 0;
+  left: 0;
+  offset-path: path("M30,370 C 400,370 500,319 570,30");
+}
