@@ -1,4 +1,5 @@
 export const MAX_SPEED_MULTIPLIER = 5;
+export const PLAYER_STORAGE_KEY = 'current_player';
 
 export const black = '#000000';
 export const darkBlue = '#14213d';
@@ -8,3 +9,5 @@ export const paper = '#e5e5e5';
 export const white = '#ffffff';
 export const tomato = '#ff6347';
 export const wheat = '#F5DEB3';
+
+export const borderGradient = `linear-gradient(${orange}, ${tomato}) padding-box,linear-gradient(to right, ${orange}, ${paper}) border-box`;

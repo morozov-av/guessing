@@ -10,3 +10,8 @@ export type Message = {
   from: string,
   text: string
 }
+
+export type SliderMark = {
+  value: number,
+  label: string
+}

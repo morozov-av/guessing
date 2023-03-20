@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { toPlayerDto } from '../shared/mapper';
@@ -13,11 +13,12 @@ export class PlayersService {
     private readonly playerModel: Model<PlayerModel>
   ) {}
 
-  async findOne(playerName: string): Promise<PlayerDto> {
+  async getOrCreate(playerName: string): Promise<PlayerDto> {
     const player = await this.playerModel.findOne({ playerName }).exec();
 
     if (!player) {
-      throw new HttpException('Player not found', HttpStatus.NOT_FOUND);
+      const createdPlayer = await this.create({ playerName });
+      return createdPlayer;
     }
 
     return toPlayerDto(player);
@@ -30,7 +31,7 @@ export class PlayersService {
   async getTop50(): Promise<PlayerDto[]> {
     const players = await this.playerModel
       .find()
-      .sort({ points: -1})
+      .sort({ points: -1 })
       .limit(50)
       .exec();
 
@@ -38,17 +39,12 @@ export class PlayersService {
   }
 
   async create(playerDto: CreatePlayerDto): Promise<PlayerDto> {
-    const { playerName, isBot } = playerDto;
+    const { playerName } = playerDto;
 
-    const playerInDb = await this.playerModel.findOne({ playerName }).exec();
-    if (playerInDb) {
-      throw new HttpException('Player already exists', HttpStatus.BAD_REQUEST);
-    }
-
-    const player: PlayerModel = await new this.playerModel({
+    const player: PlayerModel = new this.playerModel({
       playerName,
-      points: 0,
-      isBot: !!isBot
+      points: 1000,
+      isBot: false
     });
 
     await player.save();

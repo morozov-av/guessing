@@ -62,7 +62,7 @@ export const toFinishedRoundDto = (data: RoundModel): FinishedRoundDto => {
 
   const finishedRoundDto: FinishedRoundDto = {
     id,
-    multiplier
+    multiplier: multiplier || 1
   };
 
   return finishedRoundDto;
