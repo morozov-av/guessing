@@ -20,3 +20,12 @@ export type SliderMark = {
   value: number,
   label: string
 }
+
+export type Bid = {
+  playerId: string,
+  roundId: string,
+  amount: number,
+  multiplier: number
+}
+
+export type BidOrMultiplier = 'bid' | 'multiplier'

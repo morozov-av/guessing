@@ -1,6 +1,7 @@
 import { theme, ChakraProvider, Grid } from '@chakra-ui/react';
 import { Dict } from '@chakra-ui/utils';
 import { FC } from 'react';
+import { BidButton } from './components/Bid/BidButton';
 import { Chart } from './components/Chart/Chart';
 import { Chat } from './components/Chat/Chat';
 import { CurrentRound } from './components/CurrentRound/CurrentRound';
@@ -36,8 +37,8 @@ const App: FC = () => (
           min={100}
           max={1000}
           step={100}
-          initialValue={100}
           precision={0}
+          inputFor='bid'
         />
       </GridItem>
       <GridItem rowSpan={2} colSpan={2}>
@@ -46,14 +47,17 @@ const App: FC = () => (
           min={1}
           max={10}
           step={0.5}
-          initialValue={1}
           precision={1}
+          inputFor='multiplier'
         />
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={4}>
+        <BidButton />
       </GridItem>
       <GridItem rowSpan={2} colSpan={4}>
         <SpeedSlider />
       </GridItem>
-      <GridItem rowSpan={7} colSpan={4} bg='wheat'>
+      <GridItem rowSpan={6} colSpan={4} bg='wheat'>
         <Chat />
       </GridItem>
       <GridItem overflow='scroll' rowSpan={4} colSpan={4}>

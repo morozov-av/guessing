@@ -1,5 +1,6 @@
 export const MAX_SPEED_MULTIPLIER = 5;
 export const PLAYER_STORAGE_KEY = 'current_player';
+export const SPEED_STORAGE_KEY = 'speed';
 
 export const black = '#000000';
 export const darkBlue = '#14213d';

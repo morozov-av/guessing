@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form';
 import { borderGradient, paper, tomato } from '../../constants';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { Player } from '../../models/reduxModels';
-import { createPlayer } from '../../store/playerSlice';
+import { getOrCreatePlayer } from '../../store/playerSlice';
 
 
 type LoginModalProps = {
@@ -31,7 +31,7 @@ export const LoginModal: FC<LoginModalProps> = ({ onClose, isOpen }) => {
   } = useForm();
 
   const onSubmit = (form: { name: string }) => {
-    void dispatch(createPlayer(form.name))
+    void dispatch(getOrCreatePlayer(form.name))
       .unwrap()
       .then((p: Player ) => {
         onClose();

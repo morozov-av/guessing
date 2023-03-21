@@ -15,7 +15,8 @@ export const Chart: FC = () => {
     circleAnimation,
     onAnimationComplete,
     isCompleted,
-    title
+    title,
+    speed
   } = useRound();
 
   return (
@@ -44,7 +45,7 @@ export const Chart: FC = () => {
         initial={{ offsetDistance: '0%' }}
         animate={circleAnimation}
       /> }
-      { round?.multiplier && <Multiplier to={round.multiplier} duration={5} /> }
+      { round?.multiplier && <Multiplier to={round.multiplier} duration={speed} /> }
       <Countdown isCompleted={isCompleted} countdown={countdown} />
     </div>
   );

@@ -1,37 +1,47 @@
 import { Button, Flex, HStack, Input, Text, useNumberInput } from '@chakra-ui/react';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
+import { useDebounce } from 'usehooks-ts';
 import { paper, tomato, white } from '../../constants';
-import { useAppSelector } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { getAreInputsDisabled } from '../../store/playerSlice';
+import { setBidOrMultiplier } from '../../store/roundSlice';
+import { BidOrMultiplier } from '../../types';
 
 Input.defaultProps = { ...Input.defaultProps, focusBorderColor: tomato };
 
 type NumericInputProps = {
-  initialValue: number,
   step: number,
   precision: number,
   min: number,
   max: number,
-  label: string
+  label: string,
+  inputFor: BidOrMultiplier
 }
 
 export const NumericInput: FC<NumericInputProps> = ({
-    initialValue,
     step,
     precision,
     max,
     min,
-    label
+    label,
+    inputFor
   }) => {
-  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps } =
+  const initialValue = useAppSelector(state => state.round[inputFor]);
+  const { getInputProps, getIncrementButtonProps, getDecrementButtonProps, valueAsNumber } =
     useNumberInput({
-      step,
       defaultValue: initialValue,
+      step,
       min: min,
       max: max,
       precision: precision
     });
   const areInputsDisabled = useAppSelector(getAreInputsDisabled);
+  const dispatch = useAppDispatch();
+  const debouncedValue = useDebounce<number>(valueAsNumber, 500);
+
+  useEffect(() => {
+    dispatch(setBidOrMultiplier({ type: inputFor, value: debouncedValue }));
+  }, [ debouncedValue, dispatch, inputFor ]);
 
   const inc = getIncrementButtonProps();
   const dec = getDecrementButtonProps();

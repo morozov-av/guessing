@@ -12,3 +12,11 @@ export interface PlayerState {
     players: Player[]
   }
 }
+
+export interface RoundState {
+  id: string | null,
+  speed: number,
+  inProgress: boolean,
+  bid: number,
+  multiplier: number
+}

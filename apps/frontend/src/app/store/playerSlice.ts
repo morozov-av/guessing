@@ -5,7 +5,7 @@ import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
 import PlayerService from '../service/playerService';
 import { RootState } from './index';
 
-export const createPlayer = createAsyncThunk('player/createPlayer', async (name: string) => {
+export const getOrCreatePlayer = createAsyncThunk('player/createPlayer', async (name: string) => {
   const player: Player = await PlayerService.createPlayer(name);
   return player;
 });
@@ -45,10 +45,10 @@ const playerSlice = createSlice({
   },
   extraReducers: builder => {
     builder
-      .addCase(createPlayer.pending, (state) => {
+      .addCase(getOrCreatePlayer.pending, (state) => {
         state.currentPlayer.status = 'loading';
       })
-      .addCase(createPlayer.fulfilled, (state, action) => {
+      .addCase(getOrCreatePlayer.fulfilled, (state, action) => {
         const { id, playerName, points } = action.payload ;
         storage.set(PLAYER_STORAGE_KEY, playerName);
         state.currentPlayer = {
@@ -58,7 +58,7 @@ const playerSlice = createSlice({
           points
         };
       })
-      .addCase(createPlayer.rejected, (state) => {
+      .addCase(getOrCreatePlayer.rejected, (state) => {
         state.currentPlayer.status = 'idle';
       })
       .addCase(getAllPlayers.pending, (state) => {
