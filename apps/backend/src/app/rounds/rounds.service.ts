@@ -1,8 +1,9 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { v4 as uuid } from 'uuid';
 import { BidsService } from '../bids/bids.service';
+import { CreateBidDto } from '../bids/dto/bid.create.dto';
 import { BidDto } from '../bids/dto/bid.dto';
 import { getMultiplier } from '../helpers/multiplier';
 import { PlayersService } from '../players/players.service';
@@ -16,7 +17,9 @@ export class RoundsService {
   constructor(
     @InjectModel(RoundModel.name)
     private readonly roundModel: Model<RoundModel>,
+    @Inject(PlayersService)
     private readonly playersService: PlayersService,
+    @Inject(BidsService)
     private readonly bidsService: BidsService
   ) {}
 
@@ -63,6 +66,12 @@ export class RoundsService {
     await this.updatePlayersAmount(round);
 
     return toFinishedRoundDto(round);
+  }
+
+  async postBid(createBidDto: CreateBidDto): Promise<BidDto> {
+    const bid = await this.bidsService.create(createBidDto)
+
+    return bid;
   }
 
   async findOne(id: string): Promise<RoundModel | never> {

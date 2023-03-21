@@ -1,3 +1,5 @@
+import { Bid } from '../types';
+
 export interface Player {
   status: null | 'loading' | 'idle',
   id: string | null,
@@ -18,5 +20,6 @@ export interface RoundState {
   speed: number,
   inProgress: boolean,
   bid: number,
-  multiplier: number
+  multiplier: number,
+  bids: Bid[]
 }

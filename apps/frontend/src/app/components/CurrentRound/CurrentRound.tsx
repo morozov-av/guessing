@@ -7,10 +7,21 @@ import {
   Thead,
   Tr
 } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import React, { FC } from 'react';
 import { tomato } from '../../constants';
+import { useAppSelector } from '../../hooks/reduxHooks';
+
+const MotionTr = motion(Tr);
+const spring = {
+  type: 'spring',
+  damping: 25,
+  stiffness: 120
+};
 
 export const CurrentRound: FC = () => {
+  const bids = useAppSelector(state => state.round.bids);
+
   return(
       <TableContainer h='100%' overflowX="unset" overflowY="unset">
         <Table size='sm' variant='striped' colorScheme='teal'>
@@ -21,63 +32,26 @@ export const CurrentRound: FC = () => {
               <Th border='none'></Th>
             </Tr>
             <Tr>
-              <Th>To convert</Th>
-              <Th>into</Th>
-              <Th isNumeric>multiply by</Th>
+              <Th>Name</Th>
+              <Th isNumeric>Bid</Th>
+              <Th isNumeric>Multiplier</Th>
             </Tr>
           </Thead>
 
           <Tbody>
-            <Tr>
-              <Td>inches</Td>
-              <Td>millimetres (mm)</Td>
-              <Td isNumeric>25.4</Td>
-            </Tr>
-            <Tr>
-              <Td>feet</Td>
-              <Td>centimetres (cm)</Td>
-              <Td isNumeric>30.48</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
-            <Tr>
-              <Td>yards</Td>
-              <Td>metres (m)</Td>
-              <Td isNumeric>0.91444</Td>
-            </Tr>
+            {bids.map((bid, index) => {
+              return (
+                <MotionTr
+                  layout
+                  key={bid.playerId}
+                  transition={spring}
+                >
+                  <Td>{index + 1}</Td>
+                  <Td isNumeric>{bid.amount}</Td>
+                  <Td isNumeric>{bid.multiplier}</Td>
+                </MotionTr>
+              );
+            })}
           </Tbody>
         </Table>
       </TableContainer>

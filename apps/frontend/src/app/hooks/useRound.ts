@@ -2,8 +2,8 @@ import { useAnimation } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { roundSocket } from '../service/round/socket';
 import { getAllPlayers } from '../store/playerSlice';
-import { setRoundId, setRoundProgress } from '../store/roundSlice';
-import { Round } from '../types';
+import { saveBid, setRoundId, setRoundProgress } from '../store/roundSlice';
+import { Bid, Round } from '../types';
 import { useAppDispatch, useAppSelector } from './reduxHooks';
 
 export const useRound = () => {
@@ -23,6 +23,9 @@ export const useRound = () => {
     });
     roundSocket.on('round', (round: Round) => {
       setRound(round);
+    });
+    roundSocket.on('bid:get', (bid: Bid) => {
+      void dispatch(saveBid({ bid }));
     });
 
     return () => {

@@ -9,6 +9,7 @@ import {
 } from "@nestjs/websockets";
 import * as schedule from 'node-schedule';
 import { Server, Socket } from "socket.io";
+import { CreateBidDto } from '../bids/dto/bid.create.dto';
 import { RoundDto } from './dto/round.dto';
 import { RoundsService } from './rounds.service';
 
@@ -24,7 +25,9 @@ const players: Record<string, string> = {};
 export class RoundsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
-  constructor(private readonly roundsService: RoundsService) {}
+  constructor(
+    private readonly roundsService: RoundsService
+  ) {}
 
   @WebSocketServer() server: Server;
 
@@ -40,6 +43,14 @@ export class RoundsGateway
   async handleRoundFinish(@Body() roundDto: RoundDto): Promise<void> {
     const finishedRound = await this.roundsService.finish(roundDto);
     this.server.emit("round", finishedRound);
+  }
+
+  @UsePipes(new ValidationPipe())
+  @SubscribeMessage("bid:post")
+  async handlePostBid(@Body() createBidDto: CreateBidDto): Promise<void> {
+    console.log(createBidDto)
+    const bid = await this.roundsService.postBid(createBidDto);
+    this.server.emit("bid:get", bid);
   }
 
   afterInit(server: Server) {

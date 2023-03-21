@@ -11,7 +11,8 @@ const initialRoundState: RoundState = {
   speed: currentSpeed || 6,
   inProgress: true,
   bid: 0,
-  multiplier: 0
+  multiplier: 0,
+  bids: []
 };
 
 export const createBid = createAsyncThunk('bids/createBid', async (bid: Bid) => {
@@ -25,6 +26,7 @@ const roundSlice = createSlice({
     setRoundId(state, action: { payload: { id: string, inProgress: boolean } } ) {
       state.id = action.payload.id;
       state.inProgress = action.payload.inProgress;
+      state.bids = initialRoundState.bids;
     },
     setRoundProgress(state, action: { payload: { inProgress: boolean } } ) {
       state.inProgress = action.payload.inProgress;
@@ -36,6 +38,11 @@ const roundSlice = createSlice({
     setBidOrMultiplier(state, action: { payload: { type: BidOrMultiplier, value: number } } ) {
       const { type, value } = action.payload;
       state[type] = value;
+    },
+    saveBid(state, action: { payload: { bid: Bid } } ) {
+      if (action.payload.bid.roundId === state.id) {
+        state.bids.push(action.payload.bid);
+      }
     }
   },
   extraReducers: builder => {
@@ -49,7 +56,8 @@ export const {
   setRoundId,
   setMultiplierSpeed,
   setRoundProgress,
-  setBidOrMultiplier
+  setBidOrMultiplier,
+  saveBid
 } = roundSlice.actions;
 
 export default roundSlice;
