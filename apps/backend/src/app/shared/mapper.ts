@@ -11,14 +11,14 @@ import { RoundModel } from '../rounds/models/round.model';
 export const toPlayerDto = (data: PlayerModel): PlayerDto => {
   const { id, playerName, points, isBot } = data;
 
-  const userDto: PlayerDto = {
+  const playerDto: PlayerDto = {
     id,
     playerName,
     points,
     isBot
   };
 
-  return userDto;
+  return playerDto;
 };
 
 export const toBidDto = (data: BidModel): BidDto => {

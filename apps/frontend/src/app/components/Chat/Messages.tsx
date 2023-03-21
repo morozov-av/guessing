@@ -8,11 +8,16 @@ const AlwaysScrollToBottom: FC = () => {
   return <div ref={elementRef} />;
 };
 
-export const Messages: FC<{ messages: Message[] }> = ({ messages }) => {
+type MessagesProps = {
+  playerName: string | null,
+  messages: Message[]
+}
+
+export const Messages: FC<MessagesProps> = ({ messages, playerName }) => {
   return (
     <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column" p="3">
       {messages.map((item, index) => {
-        if (item.from === 'me') {
+        if (item.playerName === playerName) {
           return (
             <Flex key={index} w="100%" justify="flex-end">
               <Flex
@@ -23,7 +28,7 @@ export const Messages: FC<{ messages: Message[] }> = ({ messages }) => {
                 my="1"
                 p="3"
               >
-                <Text>{item.text}</Text>
+                <Text>{item.message}</Text>
               </Flex>
             </Flex>
           );
@@ -43,7 +48,7 @@ export const Messages: FC<{ messages: Message[] }> = ({ messages }) => {
                 my="1"
                 p="3"
               >
-                <Text>{item.text}</Text>
+                <Text>{item.message}</Text>
               </Flex>
             </Flex>
           );

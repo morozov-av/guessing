@@ -3,11 +3,14 @@ import { Box, Flex, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTr
 import React, { FC, useState } from 'react';
 import { gray, MAX_SPEED_MULTIPLIER, white } from '../../constants';
 import { getSliderMarks } from '../../helpers/speedRange';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { getAreInputsDisabled } from '../../store/playerSlice';
 
 export const SpeedSlider: FC = () => {
   const max = MAX_SPEED_MULTIPLIER;
   const marks = getSliderMarks(max);
   const [ sliderValue, setSliderValue ] = useState(1);
+  const areInputsDisabled = useAppSelector(getAreInputsDisabled);
 
   const labelStyles = {
     mt: '2',
@@ -21,7 +24,7 @@ export const SpeedSlider: FC = () => {
         <TimeIcon paddingRight={1} boxSize={5} />
         <Text>Speed</Text>
       </Flex>
-      <Slider defaultValue={sliderValue} min={1} max={max} step={1} onChange={setSliderValue}>
+      <Slider isDisabled={areInputsDisabled} defaultValue={sliderValue} min={1} max={max} step={1} onChange={setSliderValue}>
         {marks.map((mark) => {
           return <SliderMark top='5px' color={white} key={mark.value} value={mark.value} {...labelStyles}>
             {mark.label}

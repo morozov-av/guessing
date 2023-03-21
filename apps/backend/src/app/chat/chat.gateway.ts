@@ -47,18 +47,18 @@ export class ChatGateway
   }
 
   handleConnection(client: Socket, ...args: any[]) {
-    const playerName = client.handshake.query.playerName as string;
+    const id = client.handshake.query.id as string;
     const socketId = client.id;
-    players[socketId] = playerName;
+    players[socketId] = id;
 
-    client.broadcast.emit("log", `${playerName} connected`);
+    client.broadcast.emit("log", `${id} connected`);
   }
 
   handleDisconnect(client: Socket) {
     const socketId = client.id;
-    const playerName = players[socketId];
+    const id = players[socketId];
     delete players[socketId];
 
-    client.broadcast.emit("log", `${playerName} disconnected`);
+    client.broadcast.emit("log", `${id} disconnected`);
   }
 }

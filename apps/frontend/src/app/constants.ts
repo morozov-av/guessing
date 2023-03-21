@@ -11,3 +11,4 @@ export const tomato = '#ff6347';
 export const wheat = '#F5DEB3';
 
 export const borderGradient = `linear-gradient(${orange}, ${tomato}) padding-box,linear-gradient(to right, ${orange}, ${paper}) border-box`;
+export const SERVER_URI = 'http://localhost:3333';

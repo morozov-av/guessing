@@ -1,6 +1,8 @@
 import { Button, Flex, HStack, Input, Text, useNumberInput } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import { paper, tomato, white } from '../../constants';
+import { useAppSelector } from '../../hooks/reduxHooks';
+import { getAreInputsDisabled } from '../../store/playerSlice';
 
 Input.defaultProps = { ...Input.defaultProps, focusBorderColor: tomato };
 
@@ -29,6 +31,7 @@ export const NumericInput: FC<NumericInputProps> = ({
       max: max,
       precision: precision
     });
+  const areInputsDisabled = useAppSelector(getAreInputsDisabled);
 
   const inc = getIncrementButtonProps();
   const dec = getDecrementButtonProps();
@@ -38,9 +41,9 @@ export const NumericInput: FC<NumericInputProps> = ({
     <Flex color={white} w='90%' alignItems='center' justifyItems='center' direction='column'>
       <Text>{label}</Text>
       <HStack>
-        <Button {...dec} bgColor={paper} color={tomato}>-</Button>
-        <Input color={tomato} bgColor={paper} {...input} />
-        <Button color={tomato} {...inc}>+</Button>
+        <Button isDisabled={areInputsDisabled} {...dec} bgColor={paper} color={tomato}>-</Button>
+        <Input isDisabled={areInputsDisabled} color={tomato} bgColor={paper} {...input} />
+        <Button isDisabled={areInputsDisabled} color={tomato} {...inc}>+</Button>
       </HStack>
     </Flex>
   );

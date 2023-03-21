@@ -8,5 +8,11 @@ export default {
       .get(`players/${name}`);
 
     return response.data;
+  },
+  async getAllPlayers(): Promise<Player[]> {
+    const response: AxiosResponse<Player[]> = await api()
+      .get('players');
+
+    return response.data;
   }
 };

@@ -7,6 +7,7 @@ import { CurrentRound } from './components/CurrentRound/CurrentRound';
 import { GridItem } from './components/GridItem';
 import { LoginButton } from './components/Login/Login';
 import { NumericInput } from './components/NumericInputForm/NumericInput';
+import { Ranking } from './components/Ranking/Ranking';
 import { SpeedSlider } from './components/Slider/Slider';
 import { Time } from './components/Time/Time';
 
@@ -59,7 +60,7 @@ const App: FC = () => (
         <CurrentRound />
       </GridItem>
       <GridItem overflow='scroll' rowSpan={4} colSpan={4}>
-        <CurrentRound />
+        <Ranking />
       </GridItem>
     </Grid>
   </ChakraProvider>

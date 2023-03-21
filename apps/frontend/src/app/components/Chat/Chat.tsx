@@ -1,38 +1,39 @@
-import { Flex, Divider } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { Flex, Divider, useToast } from '@chakra-ui/react';
+import { FC, useEffect, useState } from 'react';
+import { useChat } from '../../hooks/useChat';
 import { Footer } from './Footer';
 import { Messages } from './Messages';
 
 export const Chat: FC = () => {
-  const [ messages, setMessages ] = useState([
-    { from: 'computer', text: 'Hi, My Name is HoneyChat' },
-    { from: 'me', text: 'Hey there' },
-    { from: 'me', text: 'Myself Ferin Patel' },
-    {
-      from: 'computer',
-      text: 'Nice to meet you. You can send me message and i\'ll reply you with same message.'
-    }
-  ]);
   const [ inputMessage, setInputMessage ] = useState('');
+  const { messages, log, chatActions, playerName } = useChat();
+  const toast = useToast();
+
+  useEffect(() => {
+    if (!log) return;
+
+    toast({
+      title: log,
+      status: 'info',
+      isClosable: true,
+      duration: 2000,
+      position: 'top'
+    });
+  }, [ log ]);
 
   const handleSendMessage = () => {
     if (!inputMessage.trim().length) {
       return;
     }
-    const data = inputMessage;
 
-    setMessages((old) => [ ...old, { from: 'me', text: data } ]);
+    chatActions.send(inputMessage);
     setInputMessage('');
-
-    setTimeout(() => {
-      setMessages((old) => [ ...old, { from: 'computer', text: data } ]);
-    }, 1000);
   };
 
   return (
-      <Flex flexDir="column" height={'100%'} overflow={'scroll'}>
+      <Flex w='90%' flexDir="column" height='100%' overflow='scroll'>
         <Divider />
-        <Messages messages={messages} />
+        <Messages messages={messages} playerName={playerName} />
         <Divider />
         <Footer
           inputMessage={inputMessage}

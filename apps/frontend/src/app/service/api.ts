@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { SERVER_URI } from '../constants';
 
 export default () => {
   return axios.create({
-    baseURL:'http://localhost:3333/api/'
+    baseURL: `${SERVER_URI}/api`
   });
 };
