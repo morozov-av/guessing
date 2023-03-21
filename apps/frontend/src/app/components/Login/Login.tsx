@@ -8,8 +8,8 @@ export const LoginButton = () => {
   const label = 'Login';
   const { onClose, isOpen, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
-  const playerName = useAppSelector(state => state.player.playerName);
-  const status = useAppSelector(state => state.player.status);
+  const playerName = useAppSelector(state => state.player.currentPlayer.playerName);
+  const status = useAppSelector(state => state.player.currentPlayer.status);
 
   const handleClick = () => {
       playerName ? dispatch(logout()) : onOpen();

@@ -1,6 +1,6 @@
 import { PLAYER_STORAGE_KEY } from '../constants';
 import { storage } from '../helpers/localStorage';
-import { Player } from '../models/reduxModels';
+import { Player, PlayerState } from '../models/reduxModels';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import PlayerService from '../service/playerService';
 
@@ -10,11 +10,19 @@ export const createPlayer = createAsyncThunk('player/createPlayer', async (name:
 });
 
 const currentPlayer: string | null = storage.get(PLAYER_STORAGE_KEY);
-const initialPlayerState: Player = {
+const initialPlayer: Player = {
   status: null,
   id: null,
   playerName: currentPlayer,
   points: null
+};
+
+const initialPlayerState: PlayerState = {
+  currentPlayer: initialPlayer,
+  allPlayers: {
+    status: null,
+    players: []
+  }
 };
 
 const playerSlice = createSlice({
@@ -22,31 +30,30 @@ const playerSlice = createSlice({
   initialState: initialPlayerState,
   reducers: {
     logout(state) {
-      state.status = 'idle';
-      state.playerName = null;
-      state.id = null;
-      state.points = null;
+      state.currentPlayer = {
+        ...initialPlayer,
+        playerName: null
+      };
       storage.set(PLAYER_STORAGE_KEY, null);
     }
   },
   extraReducers: builder => {
     builder
       .addCase(createPlayer.pending, (state) => {
-        state.status = 'loading';
-        state.error = undefined;
+        state.currentPlayer.status = 'loading';
       })
       .addCase(createPlayer.fulfilled, (state, action) => {
         const { id, playerName, points } = action.payload ;
         storage.set(PLAYER_STORAGE_KEY, playerName);
-        state.status = 'idle';
-        state.playerName = playerName;
-        state.id = id;
-        state.points = points;
+        state.currentPlayer = {
+          status:'idle',
+          playerName ,
+          id,
+          points
+        };
       })
-      .addCase(createPlayer.rejected, (state, action) => {
-        console.log(action);
-        state.status = 'idle';
-        state.error = 'Player already exists';
+      .addCase(createPlayer.rejected, (state) => {
+        state.currentPlayer.status = 'idle';
       });
   }
 });
