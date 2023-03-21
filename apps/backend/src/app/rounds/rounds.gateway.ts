@@ -7,6 +7,7 @@ import {
   WebSocketGateway,
   WebSocketServer
 } from "@nestjs/websockets";
+import * as schedule from 'node-schedule';
 import { Server, Socket } from "socket.io";
 import { RoundDto } from './dto/round.dto';
 import { RoundsService } from './rounds.service';
@@ -42,22 +43,35 @@ export class RoundsGateway
   }
 
   afterInit(server: Server) {
-    console.log(server);
+    schedule.scheduleJob('*/30 * * * * *', async () => {
+      const createdRound = await this.roundsService.create();
+      this.server.emit("round", createdRound);
+
+      let time = 15;
+      let countdown;
+
+      const update = async () => {
+        this.server.emit("countdown", time);
+        time--;
+        if (time < 0) {
+          clearInterval(countdown)
+          const finishedRound = await this.roundsService.finish(createdRound);
+          this.server.emit("round", finishedRound);
+        }
+      }
+
+      countdown = setInterval(await update, 1000);
+    });
   }
 
   handleConnection(client: Socket, ...args: any[]) {
     const playerName = client.handshake.query.playerName as string;
     const socketId = client.id;
     players[socketId] = playerName;
-
-    client.broadcast.emit("log", `${playerName} connected`);
   }
 
   handleDisconnect(client: Socket) {
     const socketId = client.id;
-    const playerName = players[socketId];
     delete players[socketId];
-
-    client.broadcast.emit("log", `${playerName} disconnected`);
   }
 }

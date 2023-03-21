@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { socket } from '../service/chat/socket';
+import { chatSocket } from '../service/chat/socket';
 import { Message } from '../types';
 import { useAppSelector } from './reduxHooks';
 
@@ -10,25 +10,24 @@ export const useChat = () => {
   const [ log, setLog ] = useState<string>();
 
   useEffect(() => {
-    socket.on('log', (log: string) => {
-      console.log(log);
+    chatSocket.on('log', (log: string) => {
       setLog(log);
     });
 
-    socket.on('messages', (messages: Message[]) => {
+    chatSocket.on('messages', (messages: Message[]) => {
       setMessages(messages);
     });
 
-    socket.emit('messages:get');
+    chatSocket.emit('messages:get');
 
     return () => {
-      socket.off('messages');
-      socket.off('log');
+      chatSocket.off('messages');
+      chatSocket.off('log');
     };
   }, []);
 
   const send = useCallback((message: string) => {
-    !!playerName && socket.emit('message:post', { playerName, message });
+    !!playerName && chatSocket.emit('message:post', { playerName, message });
   }, [ playerName ]);
 
   const chatActions = useMemo(

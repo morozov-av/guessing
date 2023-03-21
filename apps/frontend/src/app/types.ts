@@ -11,17 +11,12 @@ export type Message = {
   message: string
 }
 
+export type Round = {
+  id: string,
+  multiplier: number
+}
+
 export type SliderMark = {
   value: number,
   label: string
-}
-
-export interface ServerToClientEvents {
-  log: (log: string) => void;
-  messages: (messages: Message[]) => void;
-}
-
-export interface ClientToServerEvents {
-  ['messages:get']: () => void;
-  ['message:post']: (message: Message) => void;
 }

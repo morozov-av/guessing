@@ -4,6 +4,9 @@ import { IRound } from '../interfaces/rounds.interface';
 
 @Schema({ collection: 'rounds', timestamps: true })
 export class RoundModel extends Document implements IRound {
+  @Prop({ required: true })
+  id: string;
+
   @Prop({ required: false })
   multiplier?: number;
 }

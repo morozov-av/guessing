@@ -7,5 +7,5 @@ const getRandomNumberInRange = (min: number, max: number): number => {
 }
 
 export const getMultiplier = (): number => {
-  return getRandomNumberInRange(1, getRandomNumberInRange(1, 10))
+  return getRandomNumberInRange(1.5, getRandomNumberInRange(1.5, 10))
 }

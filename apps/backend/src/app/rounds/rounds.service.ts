@@ -1,11 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { v4 as uuid } from 'uuid';
 import { BidsService } from '../bids/bids.service';
 import { BidDto } from '../bids/dto/bid.dto';
 import { getMultiplier } from '../helpers/multiplier';
 import { PlayersService } from '../players/players.service';
-import { toFinishedRoundDto, toPlayerDto, toRoundDto } from '../shared/mapper';
+import { toFinishedRoundDto, toRoundDto } from '../shared/mapper';
 import { FinishedRoundDto } from './dto/round.finished.dto';
 import { RoundDto } from './dto/round.dto';
 import { RoundModel } from './models/round.model';
@@ -20,7 +21,9 @@ export class RoundsService {
   ) {}
 
   async create(): Promise<RoundDto> {
-    const round: RoundModel = await new this.roundModel();
+    const round: RoundModel = await new this.roundModel({
+      id: uuid()
+    });
 
     await round.save();
 
