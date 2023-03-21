@@ -8,6 +8,7 @@ import { CurrentRound } from './components/CurrentRound/CurrentRound';
 import { GridItem } from './components/GridItem';
 import { LoginButton } from './components/Login/Login';
 import { NumericInput } from './components/NumericInputForm/NumericInput';
+import { Points } from './components/Points/Points';
 import { Ranking } from './components/Ranking/Ranking';
 import { SpeedSlider } from './components/Slider/Slider';
 import { Time } from './components/Time/Time';
@@ -18,20 +19,23 @@ const App: FC = () => (
       w='100%'
       h='100vh'
       templateRows='repeat(12, 1fr)'
-      templateColumns='repeat(12, 1fr)'
+      templateColumns='repeat(18, 1fr)'
       gap={4}
       padding={50}
     >
-      <GridItem rowSpan={8} colSpan={8}>
+      <GridItem rowSpan={8} colSpan={12}>
         <Chart />
       </GridItem>
       <GridItem rowSpan={1} colSpan={2}>
         <Time />
       </GridItem>
       <GridItem rowSpan={1} colSpan={2}>
+        <Points />
+      </GridItem>
+      <GridItem rowSpan={1} colSpan={2}>
         <LoginButton />
       </GridItem>
-      <GridItem rowSpan={2} colSpan={2}>
+      <GridItem rowSpan={2} colSpan={3}>
         <NumericInput
           label="Your bid"
           min={100}
@@ -41,7 +45,7 @@ const App: FC = () => (
           inputFor='bid'
         />
       </GridItem>
-      <GridItem rowSpan={2} colSpan={2}>
+      <GridItem rowSpan={2} colSpan={3}>
         <NumericInput
           label="Multiplier"
           min={1}
@@ -51,19 +55,19 @@ const App: FC = () => (
           inputFor='multiplier'
         />
       </GridItem>
-      <GridItem rowSpan={1} colSpan={4}>
+      <GridItem rowSpan={1} colSpan={6}>
         <BidButton />
       </GridItem>
-      <GridItem rowSpan={2} colSpan={4}>
+      <GridItem rowSpan={2} colSpan={6}>
         <SpeedSlider />
       </GridItem>
-      <GridItem rowSpan={6} colSpan={4} bg='wheat'>
+      <GridItem rowSpan={6} colSpan={6} bg='wheat'>
         <Chat />
       </GridItem>
-      <GridItem overflow='scroll' rowSpan={4} colSpan={4}>
+      <GridItem overflow='scroll' rowSpan={4} colSpan={6}>
         <CurrentRound />
       </GridItem>
-      <GridItem overflow='scroll' rowSpan={4} colSpan={4}>
+      <GridItem overflow='scroll' rowSpan={4} colSpan={6}>
         <Ranking />
       </GridItem>
     </Grid>

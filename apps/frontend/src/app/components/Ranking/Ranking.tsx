@@ -7,10 +7,18 @@ import {
   Thead,
   Tr
 } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
 import React, { FC, useEffect } from 'react';
 import { tomato } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { getAllPlayers } from '../../store/playerSlice';
+
+const MotionTr = motion(Tr);
+const spring = {
+  type: 'spring',
+  damping: 25,
+  stiffness: 120
+};
 
 export const Ranking: FC = () => {
   const dispatch = useAppDispatch();
@@ -39,11 +47,15 @@ export const Ranking: FC = () => {
         <Tbody>
           {players.map((player, index) => {
             return (
-              <Tr key={player.playerName}>
+              <MotionTr
+                layout
+                key={player.playerName}
+                transition={spring}
+              >
                 <Td>{index + 1}</Td>
                 <Td>{player.playerName}</Td>
                 <Td isNumeric>{player.points}</Td>
-              </Tr>
+              </MotionTr>
             );
           })}
         </Tbody>

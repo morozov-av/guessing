@@ -1,8 +1,7 @@
 import { Button, Spinner, useDisclosure } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { orange, white } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
-import { getOrCreatePlayer, logout } from '../../store/playerSlice';
+import { logout } from '../../store/playerSlice';
 import { LoginModal } from './LoginModal';
 
 export const LoginButton = () => {
@@ -10,12 +9,6 @@ export const LoginButton = () => {
   const { onClose, isOpen, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
   const { playerName, status } = useAppSelector(state => state.player.currentPlayer);
-
-  useEffect(() => {
-    if (playerName) {
-      void dispatch(getOrCreatePlayer(playerName));
-    }
-  }, [ dispatch, playerName ]);
 
   const logoutPlayer = () => {
     dispatch(logout());

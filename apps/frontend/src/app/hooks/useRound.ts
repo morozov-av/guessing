@@ -1,6 +1,7 @@
 import { useAnimation } from 'framer-motion';
 import { useEffect, useState } from 'react';
 import { roundSocket } from '../service/round/socket';
+import { getAllPlayers } from '../store/playerSlice';
 import { setRoundId, setRoundProgress } from '../store/roundSlice';
 import { Round } from '../types';
 import { useAppDispatch, useAppSelector } from './reduxHooks';
@@ -32,7 +33,8 @@ export const useRound = () => {
 
   useEffect(() => {
     isCompleted && setTitle('Winner, winner, chicken dinner!');
-  }, [ isCompleted ]);
+    void dispatch(getAllPlayers());
+  }, [ dispatch, isCompleted ]);
 
   useEffect(() => {
     setComplete(false);

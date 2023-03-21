@@ -69,6 +69,14 @@ const playerSlice = createSlice({
           status:'idle',
           players: action.payload
         };
+        const currentPlayer = action.payload.find((p) => p.playerName === state.currentPlayer.playerName);
+
+        if (currentPlayer) {
+          state.currentPlayer = {
+            ...currentPlayer,
+            status: state.currentPlayer.status
+          };
+        }
       })
       .addCase(getAllPlayers.rejected, (state) => {
         state.allPlayers.status = 'idle';

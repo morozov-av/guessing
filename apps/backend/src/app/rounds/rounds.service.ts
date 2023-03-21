@@ -34,7 +34,8 @@ export class RoundsService {
     const { playerId, amount, multiplier: playerMultiplier } = bid;
 
     const diff = playerMultiplier <= multiplier ? amount * multiplier : -amount;
-    const filter = { id: playerId };
+    const filter = { _id: playerId };
+
     await this.playersService.updateAmount(filter, diff);
   }
 
