@@ -7,25 +7,6 @@
     "build": "nx build backend && nx build frontend",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx"
   },
-  "nx": {
-    "namedInputs": {
-      "default": ["{projectRoot}/**/*"],
-      "production": ["!{projectRoot}/**/*.spec.tsx"]
-    },
-    "targets": {
-      "build": {
-        "inputs": ["production", "^production"],
-        "outputs": ["{workspaceRoot}/dist/libs/mylib"],
-        "dependsOn": ["^build"]
-      },
-      "test": {
-        "inputs": ["default", "^production"],
-        "outputs": [],
-        "dependsOn": ["build"]
-      }
-    },
-    "includedScripts": ["build"]
-  },
   "private": true,
   "dependencies": {
     "@chakra-ui/icons": "^2.0.17",
