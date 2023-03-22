@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "start": "nx run-many --parallel --target=serve --projects=backend,frontend",
-    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx"
+    "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx",
+    "build": "nx build backend && nx build frontend"
   },
   "private": true,
   "dependencies": {
