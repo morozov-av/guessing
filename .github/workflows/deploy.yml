@@ -34,3 +34,5 @@ jobs:
           remote_host: "${{ secrets.HOST }}"
           remote_user: ubuntu
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+
+      - run: npm run start:prod
