@@ -16,7 +16,20 @@ type MessagesProps = {
 
 export const Messages: FC<MessagesProps> = ({ messages, playerName }) => {
   return (
-    <Flex w="100%" h="80%" overflowY="scroll" flexDirection="column" p="3">
+    <Flex
+      w="100%"
+      h="80%"
+      overflowY="scroll"
+      flexDirection="column"
+      p="3"
+      sx={
+        {
+          '::-webkit-scrollbar':{
+            display:'none'
+          }
+        }
+      }
+    >
       {messages.map((item, index) => {
         if (item.playerName === playerName) {
           return (

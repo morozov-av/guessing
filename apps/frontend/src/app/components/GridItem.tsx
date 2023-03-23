@@ -12,6 +12,13 @@ export const GridItem: FC<GridItemProps> = (props) =>
     bg={borderGradient}
     borderWidth={4}
     borderStyle='solid'
+    sx={
+      {
+        '::-webkit-scrollbar':{
+          display:'none'
+        }
+      }
+    }
     {...props}
   >
     {props.children}

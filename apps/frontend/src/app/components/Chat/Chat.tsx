@@ -32,7 +32,19 @@ export const Chat: FC = () => {
   };
 
   return (
-      <Flex w='90%' flexDir="column" height='100%' overflow='scroll'>
+      <Flex
+        w='90%'
+        flexDir="column"
+        height='100%'
+        overflow='scroll'
+        sx={
+          {
+            '::-webkit-scrollbar':{
+              display:'none'
+            }
+          }
+        }
+      >
         <Messages messages={messages} playerName={playerName} />
         <Divider borderColor={darkBlue} mt="3" />
         <Footer
