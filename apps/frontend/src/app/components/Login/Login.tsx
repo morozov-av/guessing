@@ -24,6 +24,8 @@ export const LoginButton = () => {
         onClick={handleClick}
         _hover={{ backgroundColor: lightWheat }}
         w='100%'
+        h='100%'
+        borderRadius='none'
         variant='ghost'
         color={darkBlue}
       >

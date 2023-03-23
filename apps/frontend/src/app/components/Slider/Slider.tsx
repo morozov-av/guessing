@@ -30,7 +30,7 @@ export const SpeedSlider: FC = () => {
   }, [ debouncedValue, dispatch ]);
 
   return(
-    <Flex h='100%' w='90%' alignItems='center' justifyItems='center' direction='column'>
+    <Flex h='100%' w='90%' alignItems='center' justifyContent='center' direction='column'>
       <Flex alignItems='center' justifyItems='center' color={darkBlue} padding={1}>
         <TimeIcon paddingRight={1} boxSize={5} />
         <Text>Speed</Text>
