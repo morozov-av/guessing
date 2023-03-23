@@ -42,6 +42,7 @@ const roundSlice = createSlice({
     saveBid(state, action: { payload: { bid: Bid } } ) {
       if (action.payload.bid.roundId === state.id) {
         state.bids.push(action.payload.bid);
+        state.bids.sort((a, b) => b.amount - a.amount);
       }
     }
   },

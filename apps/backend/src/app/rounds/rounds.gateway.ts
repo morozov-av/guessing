@@ -48,7 +48,6 @@ export class RoundsGateway
   @UsePipes(new ValidationPipe())
   @SubscribeMessage("bid:post")
   async handlePostBid(@Body() createBidDto: CreateBidDto): Promise<void> {
-    console.log(createBidDto)
     const bid = await this.roundsService.postBid(createBidDto);
     this.server.emit("bid:get", bid);
   }
