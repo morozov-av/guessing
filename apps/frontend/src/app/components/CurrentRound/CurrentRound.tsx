@@ -39,17 +39,17 @@ export const CurrentRound: FC = () => {
           </Thead>
 
           <Tbody>
-            {bids.map((bid, index) => {
+            {bids.map((bid) => {
               return (
                 <MotionTr
                   layout
                   initial={{ opacity: 0, scale: 0 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0 }}
-                  key={bid.playerId}
+                  key={bid.playerName}
                   transition={spring}
                 >
-                  <Td>{index + 1}</Td>
+                  <Td>{bid.playerName}</Td>
                   <Td isNumeric>{bid.amount}</Td>
                   <Td isNumeric>{bid.multiplier}</Td>
                 </MotionTr>

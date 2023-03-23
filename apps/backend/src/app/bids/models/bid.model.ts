@@ -5,7 +5,7 @@ import { IBid } from '../interfaces/bid.interface';
 @Schema({ collection: 'bids', timestamps: true })
 export class BidModel extends Document implements IBid {
   @Prop({ required: true })
-  playerId: string;
+  playerName: string;
 
   @Prop({ required: true })
   roundId: string;

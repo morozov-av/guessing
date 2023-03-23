@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 export class CreateBidDto {
   @IsNotEmpty()
   @IsString()
-  playerId: string;
+  playerName: string;
 
   @IsNotEmpty()
   @IsString()

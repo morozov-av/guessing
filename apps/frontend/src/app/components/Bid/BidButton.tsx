@@ -1,23 +1,30 @@
 import { Button, useToast } from '@chakra-ui/react';
 import { useCallback } from 'react';
 import { orange, white } from '../../constants';
-import { useAppSelector } from '../../hooks/reduxHooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { RoundState } from '../../models/reduxModels';
 import { roundSocket } from '../../service/round/socket';
+import { setRoundProgress } from '../../store/roundSlice';
 
 export const BidButton = () => {
   const label = 'Make your guess!';
   const round: RoundState = useAppSelector(state => state.round);
-  const playerId = useAppSelector(state => state.player.currentPlayer.id);
+  const playerName = useAppSelector(state => state.player.currentPlayer.playerName);
   const toast = useToast();
+  const dispatch = useAppDispatch();
   const isDisabled = useCallback((): boolean => {
-    return !playerId || !round.bid || !round.multiplier || !round.id || round.inProgress;
-  }, [ playerId, round.bid, round.id, round.inProgress, round.multiplier ]);
+    const isPlayerLoggedIn = !!playerName;
+    const isRoundInProgress = round.inProgress;
+    const isRoundStarted = !!round.id;
+    const isGuessComplete = !!round.bid && !!round.multiplier;
+
+    return !isPlayerLoggedIn || isRoundInProgress || !isRoundStarted || !isGuessComplete;
+  }, [ playerName, round.bid, round.id, round.inProgress, round.multiplier ]);
 
   const handleClick = () => {
-    if (!isDisabled() && !!playerId && !!round.id) {
+    if (!isDisabled() && !!playerName && !!round.id) {
       roundSocket.emit('bid:post', {
-        playerId,
+        playerName,
         roundId: round.id,
         amount: round.bid,
         multiplier: round.multiplier
@@ -29,6 +36,7 @@ export const BidButton = () => {
         duration: 3000,
         position: 'top'
       });
+      dispatch(setRoundProgress({ inProgress: true }));
     }
   };
 

@@ -1,5 +1,5 @@
 export interface IBid {
-  playerId: string;
+  playerName: string;
   roundId: string;
   amount: number;
   multiplier: number;

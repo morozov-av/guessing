@@ -7,7 +7,7 @@ export class BidDto {
 
   @IsNotEmpty()
   @IsString()
-  playerId: string;
+  playerName: string;
 
   @IsNotEmpty()
   @IsString()

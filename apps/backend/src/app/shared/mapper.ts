@@ -22,11 +22,11 @@ export const toPlayerDto = (data: PlayerModel): PlayerDto => {
 };
 
 export const toBidDto = (data: BidModel): BidDto => {
-  const { id, playerId, roundId, amount, multiplier } = data;
+  const { id, playerName, roundId, amount, multiplier } = data;
 
   const bidDto: BidDto = {
     id,
-    playerId,
+    playerName,
     roundId,
     amount,
     multiplier

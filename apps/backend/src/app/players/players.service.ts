@@ -24,7 +24,7 @@ export class PlayersService {
     return toPlayerDto(player);
   }
 
-  async updateAmount(filter: { _id: string }, diff: number): Promise<void> {
+  async updateAmount(filter: { playerName: string }, diff: number): Promise<void> {
     const player = await this.playerModel.findOneAndUpdate(filter, { $inc : { points: diff } }, {
       new: true
     }).exec();

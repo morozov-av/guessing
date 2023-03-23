@@ -1,8 +1,7 @@
 import { SPEED_STORAGE_KEY } from '../constants';
 import { storage } from '../helpers/localStorage';
 import { RoundState } from '../models/reduxModels';
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import RoundService from '../service/round/roundService';
+import { createSlice } from '@reduxjs/toolkit';
 import { Bid, BidOrMultiplier } from '../types';
 
 const currentSpeed: number | null = storage.get(SPEED_STORAGE_KEY);
@@ -14,10 +13,6 @@ const initialRoundState: RoundState = {
   multiplier: 0,
   bids: []
 };
-
-export const createBid = createAsyncThunk('bids/createBid', async (bid: Bid) => {
-  await RoundService.createBid(bid);
-});
 
 const roundSlice = createSlice({
   name: 'round',
@@ -45,11 +40,6 @@ const roundSlice = createSlice({
         state.bids.sort((a, b) => b.amount - a.amount);
       }
     }
-  },
-  extraReducers: builder => {
-    builder.addCase(createBid.fulfilled, (state) => {
-      state.inProgress = true;
-    });
   }
 });
 

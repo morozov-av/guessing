@@ -14,10 +14,10 @@ export class BidsService {
   ) {}
 
   async create(bidDto: CreateBidDto): Promise<BidDto> {
-    const { playerId, roundId, amount, multiplier } = bidDto;
+    const { playerName, roundId, amount, multiplier } = bidDto;
 
     const bid: BidModel = await new this.bidModel({
-      playerId,
+      playerName,
       roundId,
       amount,
       multiplier

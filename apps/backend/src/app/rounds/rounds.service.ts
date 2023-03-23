@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { v4 as uuid } from 'uuid';
@@ -34,10 +34,10 @@ export class RoundsService {
   }
 
   private async updatePlayerAmount(bid: BidDto, multiplier: number): Promise<void> {
-    const { playerId, amount, multiplier: playerMultiplier } = bid;
+    const { playerName, amount, multiplier: playerMultiplier } = bid;
 
     const diff = playerMultiplier <= multiplier ? amount * multiplier : -amount;
-    const filter = { _id: playerId };
+    const filter = { playerName };
 
     await this.playersService.updateAmount(filter, diff);
   }
@@ -72,15 +72,5 @@ export class RoundsService {
     const bid = await this.bidsService.create(createBidDto)
 
     return bid;
-  }
-
-  async findOne(id: string): Promise<RoundModel | never> {
-    const round = await this.roundModel.findOne({ id }).exec();
-
-    if (!round) {
-      throw new HttpException('Round does not exist', HttpStatus.NOT_FOUND);
-    }
-
-    return round;
   }
 }
