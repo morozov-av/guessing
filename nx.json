@@ -6,11 +6,12 @@
       "runner": "@nrwl/nx-cloud",
       "options": {
         "cacheableOperations": [
+          "build",
           "lint",
           "test",
           "e2e"
         ],
-        "accessToken": "NzFmMTQyOWYtYjhiMi00Mjg1LTlmYTItZjI0OTJiM2VhNzgzfHJlYWQtd3JpdGU="
+        "accessToken": "YWU0MWI5ODItNmI5NS00YjBjLTgwY2QtYzg0YWNkZGU2N2Y3fHJlYWQtd3JpdGU="
       }
     }
   },
@@ -33,7 +34,7 @@
     "lint": {
       "inputs": [
         "default",
-        "{workspaceRoot}/.eslintrc.json",
+        "{workspaceRoot}/.eslintrc.js",
         "{workspaceRoot}/.eslintignore"
       ]
     },
@@ -52,7 +53,7 @@
     ],
     "production": [
       "default",
-      "!{projectRoot}/.eslintrc.json",
+      "!{projectRoot}/.eslintrc.js",
       "!{projectRoot}/**/?(*.)+(spec|test).[jt]s?(x)?(.snap)",
       "!{projectRoot}/tsconfig.spec.json",
       "!{projectRoot}/jest.config.[jt]s"
