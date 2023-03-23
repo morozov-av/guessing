@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import React, { FC } from 'react';
-import { tomato } from '../../constants';
+import { mint } from '../../constants';
 import { useAppSelector } from '../../hooks/reduxHooks';
 
 const MotionTr = motion(Tr);
@@ -23,9 +23,9 @@ export const CurrentRound: FC = () => {
   const bids = useAppSelector(state => state.round.bids);
 
   return(
-      <TableContainer h='100%' overflowX="unset" overflowY="unset">
+      <TableContainer w='100%' h='100%' overflowX="unset" overflowY="unset">
         <Table size='sm' variant='striped' colorScheme='teal'>
-          <Thead bg={tomato} position='sticky' top='0px' zIndex="docked">
+          <Thead bg={mint} position='sticky' top='0px' zIndex="docked">
             <Tr>
               <Th border='none'>Current Round</Th>
               <Th border='none'></Th>

@@ -14,14 +14,12 @@ export const useChat = () => {
       setLog(log);
     });
 
-    chatSocket.on('messages', (messages: Message[]) => {
-      setMessages(messages);
+    chatSocket.on('message:get', (message: Message) => {
+      setMessages((messages) => ([ ...messages, message ]));
     });
 
-    chatSocket.emit('messages:get');
-
     return () => {
-      chatSocket.off('messages');
+      chatSocket.off('message:get');
       chatSocket.off('log');
     };
   }, []);

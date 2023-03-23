@@ -1,5 +1,6 @@
 import { Flex, Divider, useToast } from '@chakra-ui/react';
 import { FC, useEffect, useState } from 'react';
+import { darkBlue } from '../../constants';
 import { useChat } from '../../hooks/useChat';
 import { Footer } from './Footer';
 import { Messages } from './Messages';
@@ -19,7 +20,7 @@ export const Chat: FC = () => {
       duration: 2000,
       position: 'top'
     });
-  }, [ log ]);
+  }, [ log, toast ]);
 
   const handleSendMessage = () => {
     if (!inputMessage.trim().length) {
@@ -32,9 +33,8 @@ export const Chat: FC = () => {
 
   return (
       <Flex w='90%' flexDir="column" height='100%' overflow='scroll'>
-        <Divider />
         <Messages messages={messages} playerName={playerName} />
-        <Divider />
+        <Divider borderColor={darkBlue} mt="3" />
         <Footer
           inputMessage={inputMessage}
           setInputMessage={setInputMessage}

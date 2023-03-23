@@ -1,6 +1,6 @@
 import { Button, useToast } from '@chakra-ui/react';
 import { useCallback } from 'react';
-import { orange, white } from '../../constants';
+import { darkBlue, lightWheat } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { RoundState } from '../../models/reduxModels';
 import { roundSocket } from '../../service/round/socket';
@@ -44,10 +44,10 @@ export const BidButton = () => {
     <Button
         isDisabled={isDisabled()}
         onClick={handleClick}
-        _hover={{ backgroundColor: orange }}
+        _hover={{ backgroundColor: lightWheat }}
         w='100%'
         variant='ghost'
-        color={white}
+        color={darkBlue}
       >
         {label}
       </Button>

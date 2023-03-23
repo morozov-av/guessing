@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
 import React, { FC, useEffect } from 'react';
-import { tomato } from '../../constants';
+import { mint } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { getAllPlayers } from '../../store/playerSlice';
 
@@ -29,9 +29,9 @@ export const Ranking: FC = () => {
   }, [ dispatch ]);
 
   return(
-    <TableContainer h='100%' overflowX="unset" overflowY="unset">
+    <TableContainer w='100%' h='100%' overflowX="unset" overflowY="unset">
       <Table size='sm' variant='striped' colorScheme='teal'>
-        <Thead bg={tomato} position='sticky' top='0px' zIndex="docked">
+        <Thead bg={mint} position='sticky' top='0px' zIndex="docked">
           <Tr>
             <Th border='none'>Ranking</Th>
             <Th border='none'></Th>

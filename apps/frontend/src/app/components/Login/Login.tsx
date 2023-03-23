@@ -1,5 +1,5 @@
 import { Button, Spinner, useDisclosure } from '@chakra-ui/react';
-import { orange, white } from '../../constants';
+import { darkBlue, lightWheat } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { logout } from '../../store/playerSlice';
 import { LoginModal } from './LoginModal';
@@ -22,10 +22,10 @@ export const LoginButton = () => {
     <>
       <Button
         onClick={handleClick}
-        _hover={{ backgroundColor: orange }}
+        _hover={{ backgroundColor: lightWheat }}
         w='100%'
         variant='ghost'
-        color={white}
+        color={darkBlue}
       >
         {status === 'loading' ? <Spinner /> : playerName || label}
       </Button>

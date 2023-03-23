@@ -13,6 +13,7 @@ import { MessageModel, MessageSchema } from './models/message.model';
       },
     ]),
   ],
-  providers: [ChatService, ChatGateway]
+  providers: [ChatService, ChatGateway],
+  exports: [ChatService, ChatGateway]
 })
 export class ChatModule {}

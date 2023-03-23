@@ -19,7 +19,7 @@ export class PlayersController {
   }
 
   @Get(':playerName')
-  public async getPlayerByName(@Param() params: { playerName: string }): Promise<PlayerDto> {
-    return await this.playersService.getOrCreate(params.playerName);
+  public async getPlayerByName(@Param() createPlayerDto: CreatePlayerDto): Promise<PlayerDto> {
+    return await this.playersService.getOrCreate(createPlayerDto);
   }
 }

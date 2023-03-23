@@ -1,7 +1,7 @@
 import { TimeIcon } from '@chakra-ui/icons';
 import { Flex, Text } from '@chakra-ui/react';
 import  React, { useState , useEffect } from 'react';
-import { white } from '../../constants';
+import { darkBlue } from '../../constants';
 
 export const Time = () => {
   const [ date,setDate ] = useState(new Date());
@@ -12,7 +12,7 @@ export const Time = () => {
   });
 
   return(
-    <Flex h='100%' alignItems='center' justifyItems='center' color={white} padding={1}>
+    <Flex h='100%' alignItems='center' justifyItems='center' color={darkBlue} padding={1}>
       <TimeIcon paddingRight={1} boxSize={5} />
       <Text>{date.toLocaleTimeString()}</Text>
     </Flex>

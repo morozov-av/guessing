@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { borderGradient, paper, tomato } from '../../constants';
+import { borderGradient, paper, darkBlue } from '../../constants';
 import { useAppDispatch } from '../../hooks/reduxHooks';
 import { Player } from '../../models/reduxModels';
 import { getOrCreatePlayer } from '../../store/playerSlice';
@@ -63,7 +63,7 @@ export const LoginModal: FC<LoginModalProps> = ({ onClose, isOpen }) => {
         backdropBlur='2px'
       />
       <ModalContent bg={borderGradient}>
-        <ModalHeader color={paper}>Login</ModalHeader>
+        <ModalHeader color={darkBlue}>Login</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           {/* eslint-disable-next-line @typescript-eslint/no-misused-promises */}
@@ -71,7 +71,7 @@ export const LoginModal: FC<LoginModalProps> = ({ onClose, isOpen }) => {
             <Flex pb={4} alignItems='flex-start' justifyContent='center'>
               <FormControl pr={2} isInvalid={!!errors.name}>
                 <Input
-                  color={tomato}
+                  borderWidth='1px' borderColor={darkBlue}
                   bgColor={paper}
                   id='name'
                   placeholder='Input your name'
@@ -80,16 +80,16 @@ export const LoginModal: FC<LoginModalProps> = ({ onClose, isOpen }) => {
                     minLength: { value: 4, message: 'Minimum length should be 4' }
                   })}
                 />
-                <FormErrorMessage color={paper}>
+                <FormErrorMessage>
                   {/* eslint-disable-next-line @typescript-eslint/no-unsafe-member-access */}
                   {errors.name && errors.name.message}
                 </FormErrorMessage>
               </FormControl>
               <Button
+                borderWidth='1px' borderColor={darkBlue}
                 ml={1}
                 isLoading={isSubmitting}
                 type='submit'
-                color={tomato}
                 bgColor={paper}
               >
                 Submit

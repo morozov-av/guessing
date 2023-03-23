@@ -2,7 +2,7 @@ import { TimeIcon } from '@chakra-ui/icons';
 import { Box, Flex, Slider, SliderFilledTrack, SliderMark, SliderThumb, SliderTrack, Text } from '@chakra-ui/react';
 import React, { FC, useEffect, useState } from 'react';
 import { useDebounce } from 'usehooks-ts';
-import { gray, MAX_SPEED_MULTIPLIER, white } from '../../constants';
+import { darkBlue, gray, MAX_SPEED_MULTIPLIER } from '../../constants';
 import { getSliderMarks, sliderValueToSpeed, speedToSliderValue } from '../../helpers/speedRange';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { getAreInputsDisabled } from '../../store/playerSlice';
@@ -31,21 +31,21 @@ export const SpeedSlider: FC = () => {
 
   return(
     <Flex h='100%' w='90%' alignItems='center' justifyItems='center' direction='column'>
-      <Flex alignItems='center' justifyItems='center' color={white} padding={1}>
+      <Flex alignItems='center' justifyItems='center' color={darkBlue} padding={1}>
         <TimeIcon paddingRight={1} boxSize={5} />
         <Text>Speed</Text>
       </Flex>
       <Slider isDisabled={areInputsDisabled || inProgress} defaultValue={sliderValue} min={1} max={max} step={1} onChange={setSliderValue}>
         {marks.map((mark) => {
-          return <SliderMark top='5px' color={white} key={mark.value} value={mark.value} {...labelStyles}>
+          return <SliderMark top='5px' key={mark.value} value={mark.value} {...labelStyles}>
             {mark.label}
           </SliderMark>;
         })}
-        <SliderTrack bg='red.100'>
+        <SliderTrack h={2} borderRadius='1em' borderWidth='1px' borderColor={darkBlue}>
           <Box position='relative' right={10} />
           <SliderFilledTrack bg={gray} />
         </SliderTrack>
-        <SliderThumb boxSize={4} />
+        <SliderThumb boxSize={4} bg={darkBlue} />
       </Slider>
     </Flex>
   );

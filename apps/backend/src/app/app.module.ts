@@ -9,6 +9,7 @@ import { PlayersModule } from './players/players.module';
 import { RoundsModule } from './rounds/rounds.module';
 import { BidsModule } from './bids/bids.module';
 import { ChatModule } from './chat/chat.module';
+import { BotsModule } from './bots/bots.module';
 
 @Module({
   imports: [
@@ -24,7 +25,8 @@ import { ChatModule } from './chat/chat.module';
     PlayersModule,
     RoundsModule,
     BidsModule,
-    ChatModule
+    ChatModule,
+    BotsModule
   ],
   controllers: [AppController],
   providers: [AppService]

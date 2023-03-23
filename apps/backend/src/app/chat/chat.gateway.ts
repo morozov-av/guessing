@@ -38,8 +38,7 @@ export class ChatGateway
   @SubscribeMessage("message:post")
   async handleMessagePost(@Body() createMessageDto: CreateMessageDto): Promise<void> {
     const createdMessage = await this.chatService.createMessage(createMessageDto);
-    this.server.emit("message:post", createdMessage);
-    this.handleMessagesGet();
+    this.server.emit("message:get", createdMessage);
   }
 
   afterInit(server: Server) {

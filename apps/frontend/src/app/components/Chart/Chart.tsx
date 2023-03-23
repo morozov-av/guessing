@@ -1,7 +1,7 @@
 import { Container } from '@chakra-ui/react';
 import React, { FC } from 'react';
 import { motion } from 'framer-motion';
-import { white } from '../../constants';
+import { darkBlue } from '../../constants';
 import { isChrome } from '../../helpers/isChrome';
 import { useRound } from '../../hooks/useRound';
 import { Axis } from './Axis';
@@ -22,13 +22,13 @@ export const Chart: FC = () => {
 
   return (
     <div style={{ width: '600px', height: '400px', overflow: 'hidden' }} className='container'>
-      <Container display='flex' position='absolute' top={0} alignItems='flex-start' justifyContent='center' color={white}>{title}</Container>
+      <Container display='flex' position='absolute' top={0} alignItems='flex-start' justifyContent='center' color={darkBlue}>{title}</Container>
       <svg xmlns="http://www.w3.org/2000/svg" width={'600px'} height={'400px'}>
         <motion.path
-          d="M30,350 C 400,350 500,300 570,10"
+          d="M25,350 C 400,350 500,300 570,10"
           fill="transparent"
           strokeWidth="10"
-          stroke="rgba(255, 255, 255, 0.69)"
+          stroke="rgb(94, 96, 115, 0.69)"
           animate={chartAnimation}
           onAnimationComplete={onAnimationComplete}
           initial={{ pathLength: 0 }}

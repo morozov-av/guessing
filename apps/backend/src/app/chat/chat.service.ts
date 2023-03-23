@@ -14,11 +14,16 @@ export class ChatService {
   ) {}
 
   async getMessages(): Promise<MessageDto[]> {
-    const messages = await this.messageModel.find().exec();
+    const messages = await this.messageModel
+      .find()
+      .sort({ createdAt: -1 })
+      .limit(30)
+      .exec();
+
     return messages.map(toMessageDto);
   }
 
-  async createMessage(messageDto: CreateMessageDto): Promise<void> {
+  async createMessage(messageDto: CreateMessageDto): Promise<MessageDto> {
     const { playerName, message } = messageDto;
 
     const newMessage: MessageModel = await new this.messageModel({
@@ -27,5 +32,7 @@ export class ChatService {
     });
 
     await newMessage.save();
+
+    return toMessageDto(newMessage);
   }
 }

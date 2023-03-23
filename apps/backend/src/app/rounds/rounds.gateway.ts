@@ -10,7 +10,10 @@ import {
 import * as schedule from 'node-schedule';
 import { Server, Socket } from "socket.io";
 import { CreateBidDto } from '../bids/dto/bid.create.dto';
+import { BidDto } from '../bids/dto/bid.dto';
+import { BotsService } from '../bots/bots.service';
 import { RoundDto } from './dto/round.dto';
+import { COUNTDOWN, ROUND_DURATION } from './models/constants';
 import { RoundsService } from './rounds.service';
 
 const players: Record<string, string> = {};
@@ -26,7 +29,8 @@ export class RoundsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
 {
   constructor(
-    private readonly roundsService: RoundsService
+    private readonly roundsService: RoundsService,
+    private readonly botsService: BotsService
   ) {}
 
   @WebSocketServer() server: Server;
@@ -53,13 +57,13 @@ export class RoundsGateway
   }
 
   afterInit(server: Server) {
-    schedule.scheduleJob('*/30 * * * * *', async () => {
+    schedule.scheduleJob(`*/${ROUND_DURATION} * * * * *`, async () => {
       const createdRound = await this.roundsService.create();
       this.server.emit("round", createdRound);
 
-      let time = 15;
+      let time = COUNTDOWN;
       let countdown;
-
+      await this.botsService.makeBids(createdRound.id, (bid: BidDto) => this.server.emit("bid:get", bid))
       const update = async () => {
         this.server.emit("countdown", time);
         time--;

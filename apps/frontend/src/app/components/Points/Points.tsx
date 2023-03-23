@@ -1,7 +1,7 @@
 import { StarIcon } from '@chakra-ui/icons';
 import { Flex, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { white } from '../../constants';
+import { darkBlue } from '../../constants';
 import { useAppSelector } from '../../hooks/reduxHooks';
 
 const MotionFlex = motion(Flex);
@@ -17,7 +17,7 @@ export const Points = () => {
       h='100%'
       alignItems='center'
       justifyItems='center'
-      color={white}
+      color={darkBlue}
       padding={1}
     >
       <StarIcon paddingRight={1} boxSize={5} />

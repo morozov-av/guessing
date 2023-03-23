@@ -12,6 +12,7 @@ import { Points } from './components/Points/Points';
 import { Ranking } from './components/Ranking/Ranking';
 import { SpeedSlider } from './components/Slider/Slider';
 import { Time } from './components/Time/Time';
+import { buttonGradient, cyan, wheat } from './constants';
 
 const App: FC = () => (
   <ChakraProvider theme={ theme as Dict }>
@@ -22,17 +23,18 @@ const App: FC = () => (
       templateColumns='repeat(18, 1fr)'
       gap={4}
       padding={50}
+      bgColor={cyan}
     >
-      <GridItem rowSpan={8} colSpan={12}>
+      <GridItem rowSpan={8} colSpan={12} borderRadius='1em'>
         <Chart />
       </GridItem>
-      <GridItem rowSpan={1} colSpan={2}>
+      <GridItem rowSpan={1} colSpan={2} borderRadius='1em'>
         <Time />
       </GridItem>
-      <GridItem rowSpan={1} colSpan={2}>
+      <GridItem rowSpan={1} colSpan={2} borderRadius='1em'>
         <Points />
       </GridItem>
-      <GridItem rowSpan={1} colSpan={2}>
+      <GridItem rowSpan={1} colSpan={2} bg={buttonGradient}>
         <LoginButton />
       </GridItem>
       <GridItem rowSpan={2} colSpan={3}>
@@ -55,13 +57,13 @@ const App: FC = () => (
           inputFor='multiplier'
         />
       </GridItem>
-      <GridItem rowSpan={1} colSpan={6}>
+      <GridItem rowSpan={1} colSpan={6} bg={buttonGradient}>
         <BidButton />
       </GridItem>
       <GridItem rowSpan={2} colSpan={6}>
         <SpeedSlider />
       </GridItem>
-      <GridItem rowSpan={6} colSpan={6} bg='wheat'>
+      <GridItem rowSpan={6} colSpan={6} bg={wheat} borderRadius='1em'>
         <Chat />
       </GridItem>
       <GridItem overflow='scroll' rowSpan={4} colSpan={6}>

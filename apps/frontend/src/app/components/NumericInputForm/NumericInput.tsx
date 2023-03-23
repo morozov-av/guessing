@@ -1,13 +1,13 @@
 import { Button, Flex, HStack, Input, Text, useNumberInput } from '@chakra-ui/react';
 import React, { FC, useEffect } from 'react';
 import { useDebounce } from 'usehooks-ts';
-import { paper, tomato, white } from '../../constants';
+import { paper, mint, darkBlue, buttonGradient, lightWheat } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { getAreInputsDisabled } from '../../store/playerSlice';
 import { setBidOrMultiplier } from '../../store/roundSlice';
 import { BidOrMultiplier } from '../../types';
 
-Input.defaultProps = { ...Input.defaultProps, focusBorderColor: tomato };
+Input.defaultProps = { ...Input.defaultProps, focusBorderColor: mint };
 
 type NumericInputProps = {
   step: number,
@@ -48,12 +48,12 @@ export const NumericInput: FC<NumericInputProps> = ({
   const input = getInputProps();
 
   return (
-    <Flex color={white} w='90%' alignItems='center' justifyItems='center' direction='column'>
+    <Flex color={darkBlue} w='90%' alignItems='center' justifyItems='center' direction='column'>
       <Text>{label}</Text>
       <HStack>
-        <Button isDisabled={areInputsDisabled} {...dec} bgColor={paper} color={tomato}>-</Button>
-        <Input isDisabled={areInputsDisabled} color={tomato} bgColor={paper} {...input} />
-        <Button isDisabled={areInputsDisabled} color={tomato} {...inc}>+</Button>
+        <Button borderWidth='1px' borderColor={darkBlue} isDisabled={areInputsDisabled} {...dec} bg={buttonGradient} _hover={{ backgroundColor: lightWheat }} >-</Button>
+        <Input borderWidth='1px' borderColor={darkBlue} isDisabled={areInputsDisabled} bgColor={paper} {...input} />
+        <Button borderWidth='1px' borderColor={darkBlue} isDisabled={areInputsDisabled} bg={buttonGradient} _hover={{ backgroundColor: lightWheat }} {...inc}>+</Button>
       </HStack>
     </Flex>
   );

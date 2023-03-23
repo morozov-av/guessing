@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { toPlayerDto } from '../shared/mapper';
@@ -13,11 +13,16 @@ export class PlayersService {
     private readonly playerModel: Model<PlayerModel>
   ) {}
 
-  async getOrCreate(playerName: string): Promise<PlayerDto> {
+  async getOrCreate(playerDto: CreatePlayerDto, onlyRealPlayers = true): Promise<PlayerDto> {
+    const { playerName } = playerDto;
     const player = await this.playerModel.findOne({ playerName }).exec();
 
+    if (onlyRealPlayers && player?.isBot) {
+      throw new HttpException('You cannot log in as bot', HttpStatus.BAD_REQUEST);
+    }
+
     if (!player) {
-      const createdPlayer = await this.create({ playerName });
+      const createdPlayer = await this.create(playerDto);
       return createdPlayer;
     }
 
@@ -42,13 +47,19 @@ export class PlayersService {
     return players.map(toPlayerDto);
   }
 
+  async clearAll(): Promise<void> {
+     await this.playerModel
+      .deleteMany({})
+      .exec();
+  }
+
   async create(playerDto: CreatePlayerDto): Promise<PlayerDto> {
-    const { playerName } = playerDto;
+    const { playerName, isBot } = playerDto;
 
     const player: PlayerModel = new this.playerModel({
       playerName,
       points: 10000,
-      isBot: false
+      isBot: !!isBot
     });
 
     await player.save();

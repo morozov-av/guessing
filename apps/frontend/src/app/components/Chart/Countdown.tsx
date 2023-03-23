@@ -2,7 +2,7 @@ import { Flex } from '@chakra-ui/react';
 import { FC, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import Confetti from 'react-confetti';
-import { white } from '../../constants';
+import { darkBlue } from '../../constants';
 
 type CountdownProps = {
   isCompleted: boolean,
@@ -30,7 +30,7 @@ export const Countdown: FC<CountdownProps> = ({ isCompleted, countdown }) => {
       dir='column'
       justifyContent='center'
       alignItems='center'
-      color={white}
+      color={darkBlue}
       fontSize={30}
     >
       {showConfetti && <Confetti />}
