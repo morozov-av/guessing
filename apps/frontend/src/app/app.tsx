@@ -34,10 +34,10 @@ const App: FC = () => (
         padding={30}
         bgColor={cyan}
       >
-        <GridItem rowSpan={8} colSpan={{ lg: 12, md: 18, sm: 18 }} borderRadius='1em'>
+        <GridItem rowStart={{ lg: 1, md: 2, sm: 2 }} rowSpan={8} colSpan={{ lg: 12, md: 18, sm: 18 }} borderRadius='1em'>
           <Chart />
         </GridItem>
-        <GridItem rowSpan={1} colSpan={{ lg: 2, md: 6, sm: 6 }} borderRadius='1em'>
+        <GridItem rowStart={1} rowSpan={1} colSpan={{ lg: 2, md: 6, sm: 6 }} borderRadius='1em'>
           <Time />
         </GridItem>
         <GridItem rowSpan={1} colSpan={{ lg: 2, md: 6, sm: 6 }} borderRadius='1em'>
