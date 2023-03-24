@@ -3,10 +3,6 @@ import { IsNotEmpty, IsNumber, IsBoolean, IsString } from 'class-validator';
 export class PlayerDto {
   @IsNotEmpty()
   @IsString()
-  id: string;
-
-  @IsNotEmpty()
-  @IsString()
   playerName: string;
 
   @IsNotEmpty()

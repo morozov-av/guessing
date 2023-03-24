@@ -10,7 +10,7 @@ import { BotsService } from './bots.service';
     BidsModule,
     ChatModule
   ],
-  providers: [BotsService],
-  exports: [BotsService]
+  providers: [ BotsService ],
+  exports: [ BotsService ]
 })
 export class BotsModule {}

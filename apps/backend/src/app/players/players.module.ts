@@ -9,13 +9,13 @@ import { PlayersController } from './players.controller';
     MongooseModule.forFeature([
       {
         name: PlayerModel.name,
-        schema: PlayerSchema,
-      },
-    ]),
+        schema: PlayerSchema
+      }
+    ])
   ],
-  providers: [PlayersService],
-  controllers: [PlayersController],
-  exports: [PlayersService]
+  providers: [ PlayersService ],
+  controllers: [ PlayersController ],
+  exports: [ PlayersService ]
 })
 
 export class PlayersModule {}

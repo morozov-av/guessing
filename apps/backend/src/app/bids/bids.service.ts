@@ -16,7 +16,7 @@ export class BidsService {
   async create(bidDto: CreateBidDto): Promise<BidDto> {
     const { playerName, roundId, amount, multiplier } = bidDto;
 
-    const bid: BidModel = await new this.bidModel({
+    const bid: BidModel = new this.bidModel({
       playerName,
       roundId,
       amount,
@@ -32,7 +32,7 @@ export class BidsService {
 
     const filter = { roundId: id };
 
-    const bids: BidModel[] = await this.bidModel.find(filter).exec()
+    const bids: BidModel[] = await this.bidModel.find(filter).exec();
 
     return bids.map(toBidDto);
   }

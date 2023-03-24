@@ -6,7 +6,7 @@ describe('RoundsGateway', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [RoundsGateway],
+      providers: [ RoundsGateway ]
     }).compile();
 
     gateway = module.get<RoundsGateway>(RoundsGateway);

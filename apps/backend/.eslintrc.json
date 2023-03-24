@@ -1,5 +1,5 @@
 {
-  "extends": [],
+  "extends": ["../../.eslintrc.js"],
   "ignorePatterns": ["!**/*"],
   "overrides": [
     {

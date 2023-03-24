@@ -6,9 +6,9 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer
-} from "@nestjs/websockets";
+} from '@nestjs/websockets';
 import * as schedule from 'node-schedule';
-import { Server, Socket } from "socket.io";
+import { Server, Socket } from 'socket.io';
 import { CreateBidDto } from '../bids/dto/bid.create.dto';
 import { BidDto } from '../bids/dto/bid.dto';
 import { BotsService } from '../bots/bots.service';
@@ -23,7 +23,7 @@ const players: Record<string, string> = {};
     origin: '*'
   },
   serveClient: false,
-  namespace: "round"
+  namespace: 'round'
 })
 export class RoundsGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -36,49 +36,50 @@ export class RoundsGateway
   @WebSocketServer() server: Server;
 
   @UsePipes(new ValidationPipe())
-  @SubscribeMessage("round:post")
+  @SubscribeMessage('round:post')
   async handleRoundPost(): Promise<void> {
     const createdRound = await this.roundsService.create();
-    this.server.emit("round", createdRound);
+    this.server.emit('round', createdRound);
   }
 
   @UsePipes(new ValidationPipe())
-  @SubscribeMessage("round:get")
+  @SubscribeMessage('round:get')
   async handleRoundFinish(@Body() roundDto: RoundDto): Promise<void> {
     const finishedRound = await this.roundsService.finish(roundDto);
-    this.server.emit("round", finishedRound);
+    this.server.emit('round', finishedRound);
   }
 
   @UsePipes(new ValidationPipe())
-  @SubscribeMessage("bid:post")
+  @SubscribeMessage('bid:post')
   async handlePostBid(@Body() createBidDto: CreateBidDto): Promise<void> {
     const bid = await this.roundsService.postBid(createBidDto);
-    this.server.emit("bid:get", bid);
+    this.server.emit('bid:get', bid);
   }
 
-  afterInit(server: Server) {
+  afterInit() {
     schedule.scheduleJob(`*/${ROUND_DURATION} * * * * *`, async () => {
       const createdRound = await this.roundsService.create();
-      this.server.emit("round", createdRound);
+      this.server.emit('round', createdRound);
 
       let time = COUNTDOWN;
-      let countdown;
-      await this.botsService.makeBids(createdRound.id, (bid: BidDto) => this.server.emit("bid:get", bid))
-      const update = async () => {
-        this.server.emit("countdown", time);
+      // eslint-disable-next-line prefer-const
+      let countdown: NodeJS.Timer;
+      await this.botsService.makeBids(createdRound.id, (bid: BidDto) => this.server.emit('bid:get', bid));
+      const update = async (): Promise<void> => {
+        this.server.emit('countdown', time);
         time--;
         if (time < 0) {
-          clearInterval(countdown)
+          clearInterval(countdown);
           const finishedRound = await this.roundsService.finish(createdRound);
-          this.server.emit("round", finishedRound);
+          this.server.emit('round', finishedRound);
         }
-      }
+      };
 
-      countdown = setInterval(await update, 1000);
+      countdown = setInterval(() => void update(), 1000);
     });
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: Socket) {
     const playerName = client.handshake.query.playerName as string;
     const socketId = client.id;
     players[socketId] = playerName;

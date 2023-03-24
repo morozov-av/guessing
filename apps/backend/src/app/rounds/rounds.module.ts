@@ -12,14 +12,14 @@ import { RoundsGateway } from './rounds.gateway';
     MongooseModule.forFeature([
       {
         name: RoundModel.name,
-        schema: RoundSchema,
-      },
+        schema: RoundSchema
+      }
     ]),
     PlayersModule,
     BidsModule,
     BotsModule
   ],
-  providers: [RoundsService, RoundsGateway],
-  exports: [RoundsService]
+  providers: [ RoundsService, RoundsGateway ],
+  exports: [ RoundsService ]
 })
 export class RoundsModule {}

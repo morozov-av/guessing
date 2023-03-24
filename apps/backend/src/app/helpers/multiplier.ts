@@ -4,13 +4,13 @@ export const getRandomNumberInRange = (min: number, max: number): number => {
   const power = Math.pow(10, decimalPlaces);
 
   return Math.floor(rand * power) / power;
-}
+};
 
-export const randomInteger = (min, max): number =>  {
-  let rand = min + Math.random() * (max + 1 - min);
+export const randomInteger = (min: number, max: number): number =>  {
+  const rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
-}
+};
 
 export const getMultiplier = (): number => {
-  return getRandomNumberInRange(1.5, getRandomNumberInRange(1.5, 10))
-}
+  return getRandomNumberInRange(1.5, getRandomNumberInRange(1.5, 10));
+};

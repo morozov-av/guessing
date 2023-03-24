@@ -19,16 +19,14 @@ export class BotsService implements OnApplicationBootstrap{
   ) {}
 
   async onApplicationBootstrap(): Promise<void> {
-    await this.initBots()
+    await this.initBots();
   }
 
   async getOrCreate(botName: string): Promise<PlayerDto> {
-    const player = await this.playersService.getOrCreate(
+    return await this.playersService.getOrCreate(
       { playerName: botName, isBot: true },
       false
-    )
-
-    return player;
+    );
   }
 
   async makeBids(roundId: string, onComplete: (bid: BidDto) => boolean): Promise<void> {
@@ -41,21 +39,21 @@ export class BotsService implements OnApplicationBootstrap{
         playerName: botName,
         amount,
         multiplier
-      })
+      });
 
       setTimeout(() => {
-        this.chatGateway.handleMessagePost({
+        void this.chatGateway.handleMessagePost({
           playerName: botName,
           message: `I think the best deal is ${amount} points to ${multiplier} multiplier`
-        })
-        onComplete(bid)
-      }, getRandomNumberInRange(1000, 10000))
+        });
+        onComplete(bid);
+      }, getRandomNumberInRange(1000, 10000));
     }
   }
 
   async initBots(): Promise<void> {
     await Promise.all(BOT_NAMES.map(
       (botName) => this.getOrCreate(botName)
-    ))
+    ));
   }
 }

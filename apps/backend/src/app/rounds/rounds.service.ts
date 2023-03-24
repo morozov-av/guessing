@@ -24,7 +24,7 @@ export class RoundsService {
   ) {}
 
   async create(): Promise<RoundDto> {
-    const round: RoundModel = await new this.roundModel({
+    const round: RoundModel = new this.roundModel({
       id: uuid()
     });
 
@@ -48,14 +48,14 @@ export class RoundsService {
     const bids: BidDto[] = await this.bidsService.findById(id);
 
     for (const bid of bids) {
-      await this.updatePlayerAmount(bid, multiplier)
+      await this.updatePlayerAmount(bid, multiplier);
     }
   }
 
   async finish(roundDto: RoundDto): Promise<FinishedRoundDto> {
     const { id } = roundDto;
     const filter = { id };
-    const multiplier = getMultiplier()
+    const multiplier = getMultiplier();
     const update = { multiplier };
 
     const round = await this.roundModel.findOneAndUpdate(filter, update, {
@@ -69,8 +69,6 @@ export class RoundsService {
   }
 
   async postBid(createBidDto: CreateBidDto): Promise<BidDto> {
-    const bid = await this.bidsService.create(createBidDto)
-
-    return bid;
+    return await this.bidsService.create(createBidDto);
   }
 }

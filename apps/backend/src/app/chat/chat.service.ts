@@ -26,7 +26,7 @@ export class ChatService {
   async createMessage(messageDto: CreateMessageDto): Promise<MessageDto> {
     const { playerName, message } = messageDto;
 
-    const newMessage: MessageModel = await new this.messageModel({
+    const newMessage: MessageModel = new this.messageModel({
       playerName,
       message
     });

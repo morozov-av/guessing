@@ -6,8 +6,8 @@ import {
   SubscribeMessage,
   WebSocketGateway,
   WebSocketServer
-} from "@nestjs/websockets";
-import { Server, Socket } from "socket.io";
+} from '@nestjs/websockets';
+import { Server, Socket } from 'socket.io';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/message.create.dto';
 
@@ -18,7 +18,7 @@ const players: Record<string, string> = {};
     origin: '*'
   },
   serveClient: false,
-  namespace: "chat"
+  namespace: 'chat'
 })
 export class ChatGateway
   implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
@@ -28,29 +28,29 @@ export class ChatGateway
   @WebSocketServer() server: Server;
 
   @UsePipes(new ValidationPipe())
-  @SubscribeMessage("messages:get")
+  @SubscribeMessage('messages:get')
   async handleMessagesGet(): Promise<void> {
     const messages = await this.chatService.getMessages();
-    this.server.emit("messages", messages);
+    this.server.emit('messages', messages);
   }
 
   @UsePipes(new ValidationPipe())
-  @SubscribeMessage("message:post")
+  @SubscribeMessage('message:post')
   async handleMessagePost(@Body() createMessageDto: CreateMessageDto): Promise<void> {
     const createdMessage = await this.chatService.createMessage(createMessageDto);
-    this.server.emit("message:get", createdMessage);
+    this.server.emit('message:get', createdMessage);
   }
 
   afterInit(server: Server) {
     console.log(server);
   }
 
-  handleConnection(client: Socket, ...args: any[]) {
+  handleConnection(client: Socket) {
     const id = client.handshake.query.id as string;
     const socketId = client.id;
     players[socketId] = id;
 
-    client.broadcast.emit("log", `${id} connected`);
+    client.broadcast.emit('log', `${id} connected`);
   }
 
   handleDisconnect(client: Socket) {
@@ -58,6 +58,6 @@ export class ChatGateway
     const id = players[socketId];
     delete players[socketId];
 
-    client.broadcast.emit("log", `${id} disconnected`);
+    client.broadcast.emit('log', `${id} disconnected`);
   }
 }

@@ -9,11 +9,11 @@ import { MessageModel, MessageSchema } from './models/message.model';
     MongooseModule.forFeature([
       {
         name: MessageModel.name,
-        schema: MessageSchema,
-      },
-    ]),
+        schema: MessageSchema
+      }
+    ])
   ],
-  providers: [ChatService, ChatGateway],
-  exports: [ChatService, ChatGateway]
+  providers: [ ChatService, ChatGateway ],
+  exports: [ ChatService, ChatGateway ]
 })
 export class ChatModule {}

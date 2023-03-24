@@ -18,9 +18,9 @@ import { BotsModule } from './bots/bots.module';
       envFilePath: 'envs/.backend.env'
     }),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: getMongoConfig,
+      imports: [ ConfigModule ],
+      inject: [ ConfigService ],
+      useFactory: getMongoConfig
     }),
     PlayersModule,
     RoundsModule,
@@ -28,7 +28,7 @@ import { BotsModule } from './bots/bots.module';
     ChatModule,
     BotsModule
   ],
-  controllers: [AppController],
-  providers: [AppService]
+  controllers: [ AppController ],
+  providers: [ AppService ]
 })
 export class AppModule {}

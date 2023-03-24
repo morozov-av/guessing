@@ -9,61 +9,48 @@ import { FinishedRoundDto } from '../rounds/dto/round.finished.dto';
 import { RoundModel } from '../rounds/models/round.model';
 
 export const toPlayerDto = (data: PlayerModel): PlayerDto => {
-  const { id, playerName, points, isBot } = data;
+  const { playerName, points, isBot } = data;
 
-  const playerDto: PlayerDto = {
-    id,
+  return {
     playerName,
     points,
     isBot
   };
-
-  return playerDto;
 };
 
 export const toBidDto = (data: BidModel): BidDto => {
-  const { id, playerName, roundId, amount, multiplier } = data;
+  const { playerName, roundId, amount, multiplier } = data;
 
-  const bidDto: BidDto = {
-    id,
+  return {
     playerName,
     roundId,
     amount,
     multiplier
   };
-
-  return bidDto;
 };
 
 export const toMessageDto = (data: MessageModel): MessageDto => {
-  const { id, playerName, message } = data;
+  const { playerName, message } = data;
 
-  const messageDto: MessageDto = {
-    id,
+  return {
     playerName,
     message
   };
-
-  return messageDto;
 };
 
 export const toRoundDto = (data: RoundModel): RoundDto => {
   const { id } = data;
 
-  const roundDto: RoundDto = {
+  return {
     id
   };
-
-  return roundDto;
 };
 
 export const toFinishedRoundDto = (data: RoundModel): FinishedRoundDto => {
   const { id, multiplier } = data;
 
-  const finishedRoundDto: FinishedRoundDto = {
+  return {
     id,
-    multiplier: multiplier || 1
+    multiplier
   };
-
-  return finishedRoundDto;
 };

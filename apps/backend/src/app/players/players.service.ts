@@ -22,8 +22,7 @@ export class PlayersService {
     }
 
     if (!player) {
-      const createdPlayer = await this.create(playerDto);
-      return createdPlayer;
+      return await this.create(playerDto);
     }
 
     return toPlayerDto(player);

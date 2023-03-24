@@ -9,12 +9,12 @@ import { BidModel, BidSchema } from './models/bid.model';
     MongooseModule.forFeature([
       {
         name: BidModel.name,
-        schema: BidSchema,
-      },
-    ]),
+        schema: BidSchema
+      }
+    ])
   ],
-  providers: [BidsService],
-  controllers: [BidsController],
-  exports: [BidsService]
+  providers: [ BidsService ],
+  controllers: [ BidsController ],
+  exports: [ BidsService ]
 })
 export class BidsModule {}
