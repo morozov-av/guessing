@@ -18,7 +18,7 @@ export class PlayersController {
     return await this.playersService.getTop50();
   }
 
-  @Get()
+  @Get('clearAll')
   public async clearAll(): Promise<void> {
     await this.playersService.clearAll();
   }
