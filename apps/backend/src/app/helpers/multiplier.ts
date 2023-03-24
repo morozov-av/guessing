@@ -16,5 +16,5 @@ export const getMultiplier = (): number => {
 };
 
 export const getBotMultiplier = (): number => {
-  return getRandomNumberInRange(1.5, 10);
+  return getRandomNumberInRange(2.5, 10);
 };

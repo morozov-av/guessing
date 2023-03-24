@@ -22,7 +22,7 @@ export const Chart: FC = () => {
 
   return (
     <div style={{ width: '600px', height: '400px', overflow: 'hidden' }} className='container'>
-      <Container display='flex' position='absolute' top={0} alignItems='flex-start' justifyContent='center' color={darkBlue}>{title}</Container>
+      <Container minW='100%' display='flex' position='absolute' top={0} alignItems='flex-start' justifyContent='center' color={darkBlue}>{title}</Container>
       <svg xmlns="http://www.w3.org/2000/svg" width={'600px'} height={'400px'}>
         <motion.path
           d="M25,350 C 400,350 500,300 570,10"
