@@ -9,6 +9,7 @@ import {
 } from '@nestjs/websockets';
 import * as schedule from 'node-schedule';
 import { Server, Socket } from 'socket.io';
+import { UI_URI } from '../../constants';
 import { CreateBidDto } from '../bids/dto/bid.create.dto';
 import { BidDto } from '../bids/dto/bid.dto';
 import { BotsService } from '../bots/bots.service';
@@ -20,7 +21,7 @@ const players: Record<string, string> = {};
 
 @WebSocketGateway({
   cors: {
-    origin: '*'
+    origin: UI_URI
   },
   serveClient: false,
   namespace: 'round'
