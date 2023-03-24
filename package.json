@@ -6,7 +6,8 @@
     "start": "nx run-many --parallel --target=serve --projects=backend,frontend",
     "start:prod": "npx nx run-many --parallel --target=serve --projects=frontend,backend",
     "lint": "eslint --fix --ext .ts,.tsx,.js,.jsx",
-    "build": "nx build backend --skip-nx-cache && nx build frontend --skip-nx-cache"
+    "build": "nx build backend --skip-nx-cache && nx build frontend --skip-nx-cache",
+    "init-mongo": "docker-compose up"
   },
   "private": true,
   "dependencies": {

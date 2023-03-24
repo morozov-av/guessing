@@ -1,4 +1,9 @@
 export const MAX_SPEED_MULTIPLIER = 5;
+export const MAX_BID_AMOUNT = 1000;
+export const MAX_BID_MULTIPLIER = 10;
+export const MIN_BID_AMOUNT = 100;
+export const MIN_BID_MULTIPLIER = 1.5;
+
 export const PLAYER_STORAGE_KEY = 'current_player';
 export const SPEED_STORAGE_KEY = 'speed';
 

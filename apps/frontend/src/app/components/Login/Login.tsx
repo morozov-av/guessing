@@ -1,14 +1,16 @@
-import { Button, Spinner, useDisclosure } from '@chakra-ui/react';
+import { Button, useDisclosure } from '@chakra-ui/react';
 import { darkBlue, lightWheat } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { logout } from '../../store/playerSlice';
 import { LoginModal } from './LoginModal';
+import FaceIcon from '@mui/icons-material/Face';
+import { Text } from '@chakra-ui/react';
 
 export const LoginButton = () => {
   const label = 'Login';
   const { onClose, isOpen, onOpen } = useDisclosure();
   const dispatch = useAppDispatch();
-  const { playerName, status } = useAppSelector(state => state.player.currentPlayer);
+  const { playerName } = useAppSelector(state => state.player.currentPlayer);
 
   const logoutPlayer = () => {
     dispatch(logout());
@@ -29,7 +31,13 @@ export const LoginButton = () => {
         variant='ghost'
         color={darkBlue}
       >
-        {status === 'loading' ? <Spinner /> : playerName || label}
+        {playerName
+          ? <>
+          <FaceIcon />
+          <Text overflow='hidden' w='80%' textOverflow='ellipsis' >{playerName}</Text>
+          </>
+          : label
+        }
       </Button>
       <LoginModal onClose={onClose} isOpen={isOpen} />
     </>

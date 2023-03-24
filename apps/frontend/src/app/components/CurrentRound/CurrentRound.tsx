@@ -2,7 +2,7 @@ import {
   Table,
   TableContainer,
   Tbody,
-  Td,
+  Td, Text,
   Th,
   Thead,
   Tr
@@ -11,6 +11,7 @@ import { motion } from 'framer-motion';
 import React, { FC } from 'react';
 import { mint } from '../../constants';
 import { useAppSelector } from '../../hooks/reduxHooks';
+import CasinoIcon from '@mui/icons-material/Casino';
 
 const MotionTr = motion(Tr);
 const spring = {
@@ -26,8 +27,11 @@ export const CurrentRound: FC = () => {
       <TableContainer w='100%' h='100%' overflowX="unset" overflowY="unset">
         <Table size='sm' variant='striped' colorScheme='teal'>
           <Thead bg={mint} position='sticky' top='0px' zIndex="docked">
-            <Tr>
-              <Th border='none'>Current Round</Th>
+            <Tr borderBottomWidth={1}>
+              <Th border='none' display='flex' alignItems='center'>
+                <CasinoIcon />
+                <Text ml={1} >Current Round</Text>
+              </Th>
               <Th border='none'></Th>
               <Th border='none'></Th>
             </Tr>

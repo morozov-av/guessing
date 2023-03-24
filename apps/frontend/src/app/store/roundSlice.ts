@@ -10,7 +10,7 @@ const initialRoundState: RoundState = {
   speed: currentSpeed || 6,
   inProgress: true,
   bid: 100,
-  multiplier: 1,
+  multiplier: 1.5,
   bids: []
 };
 

@@ -1,6 +1,14 @@
 import { Button, useToast } from '@chakra-ui/react';
 import { useCallback } from 'react';
-import { darkBlue, lightWheat } from '../../constants';
+import {
+  darkBlue,
+  lightWheat,
+  MAX_BID_AMOUNT,
+  MAX_BID_MULTIPLIER,
+  MIN_BID_AMOUNT,
+  MIN_BID_MULTIPLIER
+} from '../../constants';
+import { getIsInRange } from '../../helpers/utils';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { RoundState } from '../../models/reduxModels';
 import { roundSocket } from '../../service/round/socket';
@@ -21,8 +29,36 @@ export const BidButton = () => {
     return !isPlayerLoggedIn || isRoundInProgress || !isRoundStarted || !isGuessComplete;
   }, [ playerName, round.bid, round.id, round.inProgress, round.multiplier ]);
 
+  const getIsValid = () => {
+    if (!getIsInRange(round.bid, MIN_BID_AMOUNT, MAX_BID_AMOUNT)) {
+      toast({
+        title: `Acceptable bid is between ${MIN_BID_AMOUNT} and ${MAX_BID_AMOUNT}`,
+        status: 'error',
+        isClosable: true,
+        duration: 2000,
+        position: 'top'
+      });
+
+      return false;
+    }
+
+    if (!getIsInRange(round.multiplier, MIN_BID_MULTIPLIER, MAX_BID_MULTIPLIER)) {
+      toast({
+        title: `Acceptable multiplier is between ${MIN_BID_MULTIPLIER} and ${MAX_BID_MULTIPLIER}`,
+        status: 'error',
+        isClosable: true,
+        duration: 2000,
+        position: 'top'
+      });
+
+      return false;
+    }
+
+    return true;
+  };
+
   const handleClick = () => {
-    if (!isDisabled() && !!playerName && !!round.id) {
+    if (!isDisabled() && !!playerName && !!round.id && getIsValid()) {
       roundSocket.emit('bid:post', {
         playerName,
         roundId: round.id,

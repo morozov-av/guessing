@@ -39,7 +39,7 @@ export class RoundsService {
     const diff = playerMultiplier <= multiplier ? amount * multiplier : -amount;
     const filter = { playerName };
 
-    await this.playersService.updateAmount(filter, diff);
+    await this.playersService.updateAmount(filter, Math.round(diff));
   }
 
   private async updatePlayersAmount(round: RoundModel): Promise<void> {

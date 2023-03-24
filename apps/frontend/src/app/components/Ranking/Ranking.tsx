@@ -2,7 +2,7 @@ import {
   Table,
   TableContainer,
   Tbody,
-  Td,
+  Td, Text,
   Th,
   Thead,
   Tr
@@ -12,6 +12,7 @@ import React, { FC, useEffect } from 'react';
 import { mint } from '../../constants';
 import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 import { getAllPlayers } from '../../store/playerSlice';
+import Filter1Icon from '@mui/icons-material/Filter1';
 
 const MotionTr = motion(Tr);
 const spring = {
@@ -32,8 +33,11 @@ export const Ranking: FC = () => {
     <TableContainer w='100%' h='100%' overflowX="unset" overflowY="unset">
       <Table size='sm' variant='striped' colorScheme='teal'>
         <Thead bg={mint} position='sticky' top='0px' zIndex="docked">
-          <Tr>
-            <Th border='none'>Ranking</Th>
+          <Tr borderBottomWidth={1}>
+            <Th border='none' display='flex' alignItems='center'>
+              <Filter1Icon />
+              <Text ml={2} >Ranking</Text>
+            </Th>
             <Th border='none'></Th>
             <Th border='none'></Th>
           </Tr>
@@ -53,7 +57,7 @@ export const Ranking: FC = () => {
                 transition={spring}
               >
                 <Td>{index + 1}</Td>
-                <Td>{player.playerName}</Td>
+                <Td maxW='15em' overflow='hidden' textOverflow='ellipsis' >{player.playerName}</Td>
                 <Td isNumeric>{player.points}</Td>
               </MotionTr>
             );
