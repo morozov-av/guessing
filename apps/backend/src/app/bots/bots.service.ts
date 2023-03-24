@@ -2,7 +2,7 @@ import { Inject, Injectable, OnApplicationBootstrap } from '@nestjs/common';
 import { BidsService } from '../bids/bids.service';
 import { BidDto } from '../bids/dto/bid.dto';
 import { ChatGateway } from '../chat/chat.gateway';
-import { getMultiplier, getRandomNumberInRange, randomInteger } from '../helpers/multiplier';
+import { getBotMultiplier, getRandomNumberInRange, randomInteger } from '../helpers/multiplier';
 import { PlayerDto } from '../players/dto/player.dto';
 import { PlayersService } from '../players/players.service';
 import { BOT_NAMES } from './constants';
@@ -32,7 +32,7 @@ export class BotsService implements OnApplicationBootstrap{
   async makeBids(roundId: string, onComplete: (bid: BidDto) => boolean): Promise<void> {
     for (const botName of BOT_NAMES) {
       const amount = 100 * randomInteger(1, 10);
-      const multiplier = getMultiplier();
+      const multiplier = getBotMultiplier();
 
       const bid = await this.bidsService.create({
         roundId,

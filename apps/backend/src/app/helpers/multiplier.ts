@@ -14,3 +14,7 @@ export const randomInteger = (min: number, max: number): number =>  {
 export const getMultiplier = (): number => {
   return getRandomNumberInRange(1.5, getRandomNumberInRange(1.5, 10));
 };
+
+export const getBotMultiplier = (): number => {
+  return getRandomNumberInRange(1.5, 10);
+};

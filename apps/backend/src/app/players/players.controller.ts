@@ -18,6 +18,11 @@ export class PlayersController {
     return await this.playersService.getTop50();
   }
 
+  @Get()
+  public async clearAll(): Promise<void> {
+    await this.playersService.clearAll();
+  }
+
   @Get(':playerName')
   public async getPlayerByName(@Param() createPlayerDto: CreatePlayerDto): Promise<PlayerDto> {
     return await this.playersService.getOrCreate(createPlayerDto);
