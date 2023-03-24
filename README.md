@@ -6,6 +6,8 @@
 
 Install Docker
 
+Create file /envs/.backend.env according to /envs/.backend.env.example
+
 Run `docker-compose up`
 
 Run `npm i`
