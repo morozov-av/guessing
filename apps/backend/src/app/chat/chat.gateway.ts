@@ -8,7 +8,6 @@ import {
   WebSocketServer
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { UI_URI } from '../../constants';
 import { ChatService } from './chat.service';
 import { CreateMessageDto } from './dto/message.create.dto';
 
@@ -16,7 +15,7 @@ const players: Record<string, string> = {};
 
 @WebSocketGateway({
   cors: {
-    origin: UI_URI
+    origin: '*'
   },
   serveClient: false,
   namespace: 'chat'
