@@ -1,2 +1,2 @@
-export const ROUND_DURATION = 30;
-export const COUNTDOWN = 15;
+export const ROUND_DURATION = 45;
+export const COUNTDOWN = 30;
