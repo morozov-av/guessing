@@ -20,4 +20,4 @@ export const platinum = '#e5e4e2';
 
 export const buttonGradient = `linear-gradient(${platinum}, ${cyan}) padding-box,linear-gradient(to right, ${lightWheat}, ${paper}) border-box`;
 export const borderGradient = `linear-gradient(${lightWheat}, ${mint}) padding-box,linear-gradient(to right, ${lightWheat}, ${paper}) border-box`;
-export const SERVER_URI = process.env.SERVER_URI || 'http://localhost:3333';
+export const SERVER_URI = process.env.REACT_APP_SERVER_URI || 'http://localhost:3333';
